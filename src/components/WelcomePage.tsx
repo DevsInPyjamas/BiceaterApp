@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-export const WelcomePage : React.FC = () => {
-    return (
-        <div>
-            Hello, world
-        </div>
-    )
-};
+const WelcomePage : React.FC = () => (
+  <div>
+      Hello, world
+  </div>
+);
+
+export default WelcomePage;
