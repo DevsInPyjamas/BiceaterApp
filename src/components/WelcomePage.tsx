@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 
 export const WelcomePage : React.FC = () => {
+    const [state, setState] = React.useState<string>('Hello');
     return (
         <div>
-            Hello, world
+        Hello, world, { state }
         </div>
-    )
+    );
 };
