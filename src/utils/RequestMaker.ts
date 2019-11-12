@@ -1,4 +1,4 @@
-import { APIResult } from "../@types/Biceater";
+import {APIResult, User} from "../@types/Biceater";
 
 const API = '/api';
 
@@ -12,8 +12,12 @@ const API = '/api';
  *     [...]
  * }
  * Notice that we will need only the headers and the method. Usually we will use GET and POST.
+ * The return type is APIResult<T>. Why? Because it is required to add a type that matches
+ * with the structure the API returns for every request, for example, if we want to
+ * query all the users from the API, in the call signature it is required to add the <User>
+ * interface to tell typescript that the exact result type it's APIResult<User>
  * */
-export const baseRequest = async (route: string, config: RequestInit): Promise<APIResult | string> => {
+export const baseRequest = async<T> (route: string, config: RequestInit): Promise<APIResult<T> | string> => {
     const requestResult = await fetch(`${API}${route}`, config);
     if(!requestResult.ok) {
         return 'Session has expired';
@@ -22,9 +26,9 @@ export const baseRequest = async (route: string, config: RequestInit): Promise<A
 };
 
 export const getAllUsers = async () => {
-    return await baseRequest('/users', { method: "GET" });
+    return await baseRequest<User>('/users', { method: "GET" });
 };
 
 export const filterUsersByUsername = async (filter: string) => {
-    return await baseRequest(`/users/${filter}`, { method: "GET" });
+    return await baseRequest<User>(`/users/${filter}`, { method: "GET" });
 };
