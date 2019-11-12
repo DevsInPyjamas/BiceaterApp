@@ -1,7 +1,11 @@
 // Here we will put the types of the project
 // for example
 
-interface User {
+export interface APIResult<T> {
+    [index: string]: T;
+}
+
+export interface User {
     name: string
     email: string;
 }
