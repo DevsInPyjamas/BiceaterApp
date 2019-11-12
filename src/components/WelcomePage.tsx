@@ -1,16 +1,12 @@
 import React from 'react';
-import {MapComponent} from "./MapComponent";
+import {Link} from "react-router-dom";
 
 const WelcomePage : React.FC = () => {
-
-    const pushHistory = () => {
-        props.histori
-    };
 
     return (
         <div className='welcome-page-background'>
             Broo
-            <div onClick={pushHistory}>Bro 2</div>
+            <Link to='/'>Click me!</Link>
         </div>
     );
 };

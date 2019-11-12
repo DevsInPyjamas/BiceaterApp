@@ -1,8 +1,20 @@
-const API = 'api/';
+import { APIResult } from "../@types/Biceater";
 
-// will think about the typing of the header in the future.
-export const baseRequest = async (route: string, headers?: any): Promise<APIResult | string> => {
-    const requestResult = await fetch(`${API}${route}`);
+const API = '/api';
+
+/**
+ * According to https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Utilizando_Fetch
+ * fetch receives 2 arguments, the Input and the Request Init
+ * Its structure is defined as follows
+ * {
+ *     method: 'GET' | 'POST' | 'DELETE' | ..
+ *     headers: Headers
+ *     [...]
+ * }
+ * Notice that we will need only the headers and the method. Usually we will use GET and POST.
+ * */
+export const baseRequest = async (route: string, config: RequestInit): Promise<APIResult | string> => {
+    const requestResult = await fetch(`${API}${route}`, config);
     if(!requestResult.ok) {
         return 'Session has expired';
     }
@@ -10,5 +22,9 @@ export const baseRequest = async (route: string, headers?: any): Promise<APIResu
 };
 
 export const getAllUsers = async () => {
-    return await baseRequest('/users');
+    return await baseRequest('/users', { method: "GET" });
+};
+
+export const filterUsersByUsername = async (filter: string) => {
+    return await baseRequest(`/users/${filter}`, { method: "GET" });
 };
