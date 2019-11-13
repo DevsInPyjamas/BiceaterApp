@@ -17,18 +17,21 @@ const API = '/api';
  * query all the users from the API, in the call signature it is required to add the <User>
  * interface to tell typescript that the exact result type it's APIResult<User>
  * */
-export const baseRequest = async<T> (route: string, config: RequestInit): Promise<APIResult<T> | string> => {
+export const baseRequest = async<T> (route: string, config: RequestInit): Promise<APIResult<T>> => {
     const requestResult = await fetch(`${API}${route}`, config);
+    if(requestResult.status === 401) {
+        window.location.replace('/login');
+    }
     if(!requestResult.ok) {
-        return 'Session has expired';
+        throw new Error('ERROR:\n' + requestResult.statusText);
     }
     return requestResult.json();
 };
 
 export const getAllUsers = async () => {
-    return await baseRequest<User>('/users', { method: "GET" });
+    return await baseRequest<User>('/users', { method: "GET", credentials: 'include' });
 };
 
 export const filterUsersByUsername = async (filter: string) => {
-    return await baseRequest<User>(`/users/${filter}`, { method: "GET" });
+    return await baseRequest<User>(`/users/${filter}`, { method: "GET", credentials: 'include' });
 };
