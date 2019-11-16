@@ -21,15 +21,15 @@ pipeline {
 
       steps {
         sh 'npm install'
-        sh "node_modules/.bin/eslint 'src/*.{ts,tsx}' 'src/**/*.{ts,tsx}'"
+        sh "node_modules/.bin/eslint 'src/*.{ts,tsx}' 'src/**/*.{ts,tsx}' --max-warnings 0"
         sh 'npm run build'
       }
     }
 
     stage('docker image') {
-      /*when {
+      when {
         branch 'master'
-      }*/
+      }
 
       agent {
         label 'docker-qemu'
