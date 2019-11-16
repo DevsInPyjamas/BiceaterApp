@@ -1,4 +1,4 @@
-import {APIResult, User} from "../@types/Biceater";
+import { User } from "../@types/Biceater";
 
 const API = '/api';
 
@@ -17,7 +17,8 @@ const API = '/api';
  * query all the users from the API, in the call signature it is required to add the <User>
  * interface to tell typescript that the exact result type it's APIResult<User>
  * */
-export const baseRequest = async<T> (route: string, config: RequestInit): Promise<APIResult<T>> => {
+export const baseRequest = async<T> (route: string, config: RequestInit): Promise<T> => {
+    config = { credentials: 'include', ...(config || {})};
     const requestResult = await fetch(`${API}${route}`, config);
     if(requestResult.status === 401) {
         window.location.replace('/login');
@@ -29,9 +30,16 @@ export const baseRequest = async<T> (route: string, config: RequestInit): Promis
 };
 
 export const getAllUsers = async () => {
-    return await baseRequest<User>('/users', { method: "GET", credentials: 'include' });
+    return await baseRequest<User>('/users', { method: "GET" });
 };
 
 export const filterUsersByUsername = async (filter: string) => {
-    return await baseRequest<User>(`/users/${filter}`, { method: "GET", credentials: 'include' });
+    return await baseRequest<User>(`/users/${filter}`, { method: "GET" });
+};
+
+export const login = async (username: string, password: string) => {
+    const res = fetch(`${API}/login`, {
+        body: JSON.stringify({ username, password }),
+        method: 'POST'
+    });
 };

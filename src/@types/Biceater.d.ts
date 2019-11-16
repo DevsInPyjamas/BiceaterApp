@@ -1,7 +1,7 @@
 // Here we will put the types of the project
 // for example
 
-export interface APIResult<T> {
+export interface JSONResult<T> {
     [index: string]: T;
 }
 
