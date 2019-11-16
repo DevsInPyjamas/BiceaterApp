@@ -30,7 +30,7 @@ export const baseRequest = async<T> (route: string, config: RequestInit): Promis
 };
 
 export const getAllUsers = async () => {
-    return await baseRequest<User>('/users', { method: "GET" });
+    return await baseRequest<User[]>('/users', { method: "GET" });
 };
 
 export const filterUsersByUsername = async (filter: string) => {
