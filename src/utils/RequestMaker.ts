@@ -38,7 +38,7 @@ export const filterUsersByUsername = async (filter: string) => {
 };
 
 export const login = async (username: string, password: string) => {
-    const res = fetch(`${API}/login`, {
+    return fetch(`${API}/login`, {
         body: JSON.stringify({ username, password }),
         method: 'POST'
     });
