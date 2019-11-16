@@ -9,7 +9,7 @@ export const LoginForm : React.FC = () => {
     return (
         <div className='d-flex justify-content-center align-items-center'>
             <div className='p-5'>
-                <form className='form-group'>
+                <form className='form-group' onClick={(event: any) => {event.preventDefault()}}>
                     <button className='btn btn-outline-info' onClick={loginClickHandler}>
                         Log In
                     </button>
