@@ -3,13 +3,13 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import WelcomePage from "./components/WelcomePage";
-import {MapComponent} from "./components/MapComponent";
+import { LoginForm } from './components/LoginForm';
+import { MapComponent } from "./components/MapComponent";
 
 export const Routes : React.FC = () => {
     return (
         <Switch>
-            <Route path='/login' component={WelcomePage}/>
+            <Route path='/login' component={LoginForm}/>
             <Route exact path='/' component={MapComponent}/>
         </Switch>
     );
