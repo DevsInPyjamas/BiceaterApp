@@ -56,11 +56,11 @@ pipeline {
           }
         }
 
-        // stage('refresh env') {
-        //   step {
-        //     sh 'curl https://portainer.majorcadevs.com/...'
-        //   }
-        // }
+        stage('refresh env') {
+          steps {
+            sh 'curl https://portainer.majorcadevs.com/api/webhooks/a69a4728-dbcc-43e1-b614-31311f818918'
+          }
+        }
       }
     }
   }
