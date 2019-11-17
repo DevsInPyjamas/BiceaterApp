@@ -58,7 +58,7 @@ pipeline {
 
         stage('refresh env') {
           steps {
-            sh 'curl https://portainer.majorcadevs.com/api/webhooks/a69a4728-dbcc-43e1-b614-31311f818918'
+            sh 'curl -X POST https://portainer.majorcadevs.com/api/webhooks/a69a4728-dbcc-43e1-b614-31311f818918'
           }
         }
       }
