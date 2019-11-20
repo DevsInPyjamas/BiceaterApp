@@ -3,7 +3,13 @@ import React from 'react';
 export const LoginForm : React.FC = () => {
 
     const loginClickHandler =  () => {
-        window.alert('This should redirect to the Google Auth');
+        let url;
+        if(process.env.NODE_ENV === 'production') {
+            url = '/api/login/google-oauth2';
+        } else {
+            url = 'http://localhost:4000/api/login/google-oauth2';
+        }
+        window.location.assign(url);
     };
 
     return (
