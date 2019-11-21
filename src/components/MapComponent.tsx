@@ -1,9 +1,11 @@
 import React from 'react';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
+import AntPath from 'react-leaglet-ant-path'
 import "../styles/index.css"
 
 export const MapComponent : React.FC = () => {
-    const position: [number, number] = [36.71580426431715, -4.455611828876954];
+    const position: [number, number] = [36.719213043469765, -4.455949667115419];
+    const position2: [number, number] = [36.72116082659559, -4.464346934397554];
     return (
       <>
           I'm trying the routing components from react.
@@ -13,8 +15,12 @@ export const MapComponent : React.FC = () => {
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               />
               <Marker position={position}>
-                  <Popup>Comprar Papatas fritas</Popup>
+                  <Popup>Resi del Alejandro</Popup>
               </Marker>
+              <Marker position={position2}>
+                  <Popup>Resi del Parejo</Popup>
+              </Marker>
+              <AntPath/>
           </Map>
       </>
   )
