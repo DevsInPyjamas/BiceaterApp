@@ -27,6 +27,7 @@ export const MapComponent : React.FC = () => {
                   <Popup>Resi del Parejo</Popup>
               </Marker>
               {isMapInit && <Routing map={map} fromCoordinates={position} toCoordinates={position2}/>}
+
           </Map>
       </>
   )
