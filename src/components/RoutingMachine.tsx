@@ -5,17 +5,19 @@ import "lrm-google";
 import { withLeaflet } from "react-leaflet";
 
 interface RoutingProps extends MapLayerProps{
-    map: any
+    map: any,
+    fromCoordinates: [number, number],
+    toCoordinates: [number, number]
 }
 
 
 export class Routing extends MapLayer<RoutingProps> {
     createLeafletElement() {
-        const { map } = this.props;
+        const { map, fromCoordinates, toCoordinates } = this.props;
         let leafletElement = L.Routing.control({
             waypoints: [
-                L.latLng(36.719213043469765, -4.455949667115419),
-                L.latLng(36.72116082659559, -4.464346934397554),
+                L.latLng(fromCoordinates[0], fromCoordinates[1]),
+                L.latLng(toCoordinates[0], toCoordinates[1]),
             ],
             lineOptions: {
                 styles: [
