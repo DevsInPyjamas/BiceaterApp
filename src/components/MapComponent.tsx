@@ -1,11 +1,13 @@
 import React from 'react';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import "../styles/index.css"
+import {Navbar} from "./Navbar";
 
 export const MapComponent : React.FC = () => {
     const position: [number, number] = [36.71580426431715, -4.455611828876954];
     return (
       <>
+          <Navbar/>
           I'm trying the routing components from react.
           <Map center={position} zoom={13} id="mapid">
               <TileLayer
