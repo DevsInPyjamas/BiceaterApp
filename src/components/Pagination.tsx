@@ -1,47 +1,51 @@
 import * as React from 'react';
+import {PaginationController} from "./PaginationController";
 
 interface PaginationProps {
-    currentPage: number;
+    paginationCount: number;
+    pageNumber: number;
     taking: number;
-    setTaking?: (event: React.FormEvent<HTMLSelectElement>) => void;
-    nextPage?: (event: React.MouseEvent<HTMLElement>) => void;
-    prevPage?: (event: React.MouseEvent<HTMLElement>) => void;
+    handleSetTaking: (event: any) => void;
+    nextPage: () => void;
+    prevPage: () => void;
+    jumpTo: (event: any) => void;
+    className?: string;
 }
 
 export const Pagination : React.FC<PaginationProps> = (
     {
-       currentPage,
-       taking,
-       setTaking,
+        paginationCount,
+        taking,
+        handleSetTaking,
         nextPage,
-       prevPage
+        prevPage,
+        pageNumber,
+        className,
+        jumpTo
    }: PaginationProps) => {
 
     return (
-        <>
-            <select onChange={setTaking}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-            </select>
-            <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                    <li className="page-item">
-                        <button className="page-link" onClick={prevPage} aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </button>
-                    </li>
-                    <li className="page-item"><a className="page-link" href="#">1</a></li>
-                    <li className="page-item"><a className="page-link" href="#">2</a></li>
-                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                    <li className="page-item">
-                        <button className="page-link" onClick={nextPage} aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </>
-    );
+        <div className={`d-flex justify-content-between align-items-center ${className}`}>
+            <div>Page: {pageNumber + 1} of {Math.floor(paginationCount / taking) + 1}</div>
+            <div className='row align-items-center'>
+                <select className='col form-control input-login bg-dark' style={{height: "75%"}} onChange={handleSetTaking} defaultValue={taking.toString()}>
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                </select>
+                <div className='col'>
+                    <PaginationController
+                        next={nextPage}
+                        jumpTo={jumpTo}
+                        prev={prevPage}
+                        pageNumber={pageNumber}
+                        taking={taking}
+                        pages={Math.floor(paginationCount / taking)}
+                    />
+                </div>
+            </div>
+        </div>
+    )
 };
 
