@@ -19,18 +19,17 @@ export const WeatherComponent : React.FC = () => {
         console.log(weather);
     }, []);
 
-    if(weather !== undefined){
+    if(weather){
         return (
             <div>
-                <button onClick={callback}>a</button>
-                <p>Malaga</p>
-
+                <p>{weather.name}</p>
+                <p>{weather.weather[0].description}</p>
+                <p>{weather.mainElem.temp}</p>
             </div>
         );
     }else{
         return(
             <div>
-                <button onClick={callback}>a</button>
                 <p>Malaga</p>
             </div>
         );

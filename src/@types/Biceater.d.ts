@@ -62,13 +62,10 @@ export interface Coordinate {
 }
 
 export interface WeatherInfo {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
+    [index:number]:Info;
 }
 
-export interface Zero {
+export interface Info {
     id: number;
     main: string;
     description: string;

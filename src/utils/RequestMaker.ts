@@ -45,5 +45,5 @@ export const login = async (username: string, password: string) => {
 };
 
 export const weatherRequest = async () => {
-    return await fetch(`http://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=189293557541eb3a6974b877cff84af7`);
+    return await fetch(`http://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=9d93802803d7be0b3f5ac1cd0ed5398d`);
 };

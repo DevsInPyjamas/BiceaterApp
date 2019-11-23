@@ -1,0 +1,1 @@
+export const createSequence = (min: number, max: number): number[] => [...Array(max - min)].map((_, i) => min + i);
