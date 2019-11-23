@@ -18,7 +18,6 @@ export const MapComponent : React.FC = () => {
     return (
       <>
           <Navbar/>
-          <WeatherComponent/>
           I'm trying the routing components from react.
           <Map center={position} zoom={13} id="mapid" ref={saveMap}>
               <TileLayer

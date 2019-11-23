@@ -22,16 +22,12 @@ export const WeatherComponent : React.FC = () => {
     if(weather){
         return (
             <div>
-                <p>{weather.name}</p>
-                <p>{weather.weather[0].description}</p>
-                <p>{weather.mainElem.temp}</p>
+                <p>{weather.name}: {weather.weather[0].description} ({weather.mainElem.temp}ºC)</p>
             </div>
         );
     }else{
         return(
-            <div>
-                <p>Malaga</p>
-            </div>
+            <div/>
         );
     }
 };
