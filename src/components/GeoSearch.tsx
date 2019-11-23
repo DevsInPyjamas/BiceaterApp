@@ -1,6 +1,5 @@
 import {MapControl, MapControlProps, withLeaflet} from "react-leaflet";
 import {GeoSearchControl, OpenStreetMapProvider} from "leaflet-geosearch";
-import L from "leaflet"
 
 interface GeoSearchProps extends MapControlProps{
     map: any
