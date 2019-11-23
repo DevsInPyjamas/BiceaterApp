@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
     "@types/jest": "24.0.21",
     "@types/leaflet-geosearch": "^2.7.1",
     "@types/leaflet-routing-machine": "^3.2.1",
