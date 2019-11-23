@@ -28,7 +28,7 @@ export class Routing extends MapLayer<RoutingProps> {
                     }
                 ]
             },
-
+            show: false,
         }).addTo(map.leafletElement);
         return leafletElement.getPlan();
     }
