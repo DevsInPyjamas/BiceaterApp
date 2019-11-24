@@ -3,7 +3,6 @@ import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import Routing from "./RoutingMachine";
 import "../styles/index.css"
 import {Navbar} from "./Navbar";
-import {WeatherComponent} from "./WeatherComponent";
 import GeoSearch from "./GeoSearch";
 
 export const MapComponent : React.FC = () => {

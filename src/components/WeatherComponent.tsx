@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {OpenWeather} from "../@types/Biceater";
 import {weatherRequest} from "../utils/RequestMaker";
 
@@ -13,11 +13,7 @@ export const WeatherComponent : React.FC = () => {
             });
         };
         fetchWeather();
-    }, []);
-
-    const callback = useCallback(() => {
-        console.log(weather);
-    }, []);
+    }, [weather]);
 
     if(weather){
         return (
