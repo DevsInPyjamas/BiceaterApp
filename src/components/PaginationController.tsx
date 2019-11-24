@@ -28,7 +28,7 @@ export const PaginationController : React.FC<PaginationProps> = ({next, prev, ju
         } else {
             setSequence(createSequence(pages - 3, pages + 2))
         }
-    }, [pageNumber, taking, pages])
+    }, [pageNumber, taking, pages]);
 
     const jump = (event: any) => {
         jumpTo(event.target.value - 1);
