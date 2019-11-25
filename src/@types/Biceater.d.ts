@@ -54,7 +54,7 @@ export interface Rating {
 }
 
 export interface datosAbierto{
-        status : condicion;
+        status : Status;
         totalSlotNumber : TotalSlotNumber;
         availableBikeNumber: AvailableBikeNumber;
         freeSlotNumber : FreeSlotNumber;
@@ -62,9 +62,9 @@ export interface datosAbierto{
         address : Direccion;
         type : string;
         id : string;
-
 }
-export interface condicion{
+
+export interface Status{
     type : string;
     value : string;
 }
@@ -91,17 +91,12 @@ export interface FreeSlotNumber {
 
 export interface Localizacion {
     type : string;
-    value : valueLocalizacion;
+    value : ValueLocalizacion;
 }
 
-export interface valueLocalizacion {
+export interface ValueLocalizacion {
     type : string;
-    coordinates : coordinates;
-}
-
-export interface coordinates {
-    0 : number;
-    1 : number;
+    coordinates : [number, number];
 }
 
 export interface Direccion {
@@ -114,7 +109,6 @@ export interface valueDireccion {
     addressLocality : string;
     streetAddress : string;
     type : string;
-
 }
 
 export interface Comment {
