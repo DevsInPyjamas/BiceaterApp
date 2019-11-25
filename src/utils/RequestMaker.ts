@@ -47,3 +47,7 @@ export const login = async (username: string, password: string) => {
 export const retrieveStation = async (stationId: number) => {
     return await baseRequest<BikeHireDockingStation>(`/stations/${stationId}`);
 };
+
+export const retrieveAllStations = async () => {
+    return await baseRequest<BikeHireDockingStation[]>('/stations');
+};
