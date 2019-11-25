@@ -16,7 +16,7 @@ export const MapComponent : React.FC = () => {
     };
     return (
       <>
-          <Navbar/>
+
           <Map center={position} zoom={13} id="mapid" ref={saveMap}>
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

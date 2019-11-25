@@ -1,5 +1,7 @@
 import React, {useState, useCallback} from 'react';
-import { datosAbiertos } from '../utils/RequestMaker'
+import { datosAbiertos } from '../utils/RequestMaker';
+import {Navbar} from "./Navbar";
+import {MapComponent} from "./MapComponent";
 
 
 export const Parada : React.FC = () => {
@@ -18,35 +20,43 @@ export const Parada : React.FC = () => {
     }, []);
 
     return (
-    <div className="container" style={{marginTop: "10px"}}>
-      <div className="row">
-                <div className="col-3">
+    <div className="container">
+    <Navbar/>
+      <div className="row" style={{marginTop: "10px"}}>
+                <div className="col-6">
                   <div className="card">
                     <div className="card-body">
                       Estacion XXX
                     </div>
                   </div>
                 </div>
-                <div className="col-6">
 
-                </div>
                 <div className="col-3">
-                    <div className="card">
+                   <div className="card">
                        <div className="card-body">
-                           <select>
+                           <select className="form-control" style={{marginRight: "10px"}}>
                              {range(1, 10).map((el) => <option value={el} key={el}>{el}</option>)}
                             </select>
-                             <button>Valorar</button>
-                      </div>
-                 </div>
+
                 </div>
-      </div>
-      <div className="row">
+                    </div>
+                     </div>
+                     <div className="col-3">
+                                        <div className="card">
+                                            <div className="card-body">
+                                                 <button type="button" className="btn btn-primary"  style= {{float: "left"}}>Valora  !</button>
 
-        <div className="col"> Mpaa aqio </div>
+                                     </div>
+                                         </div>
+                                          </div>
 
       </div>
-      <div className="row">
+      <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
+
+        <div className="col" style={{justifyContent: "center"}}> <MapComponent/> </div>
+
+      </div>
+      <div className="row" style={{marginBottom: "20px"}}>
               <div className="col-2">
 
               </div>
@@ -60,7 +70,7 @@ export const Parada : React.FC = () => {
                                                     Hey... say something!
                                                     </textarea>
                                                     </div>
-                                                    <input type="submit" value="Nuevo Comentario" />
+                                                    <button type="button" className="btn btn-primary">Comenta!</button>
                                                     </form>
                                    </div>
                                  </div>
@@ -70,8 +80,6 @@ export const Parada : React.FC = () => {
               </div>
             </div>
     </div>
-
-
 
     );
 };
