@@ -5,22 +5,29 @@ import { createSequence } from "../utils/NumberUtilities";
 import {retrieveStation} from "../utils/RequestMaker";
 import { BikeHireDockingStation } from "../@types/Biceater";
 
-interface StationRouteParameters extends RouteComponentProps{
+interface RouteParameters {
     stationId: string;
 }
 
-export const Parada : React.FC<StationRouteParameters> = (props: StationRouteParameters) => {
+type StationProps = RouteComponentProps<RouteParameters>
 
-    const stationId = Number(props.stationId);
+export const Parada : React.FC<StationProps> = (props: StationProps) => {
+
+    const stationId = parseInt(props.match.params.stationId);
+
+    console.log(stationId);
 
     const [station, setStation] = useState<BikeHireDockingStation>();
 
     useEffect(() => {
-        retrieveStation(stationId).then((result: BikeHireDockingStation) => {
-            setStation(result);
-        }).catch((err: any) => {
-            console.log('Fuck');
-        });
+        if(station === undefined) {
+            retrieveStation(stationId).then((result: BikeHireDockingStation) => {
+                setStation(result);
+                console.log(station);
+            }).catch((err: any) => {
+                console.log('Fuck');
+            });
+        }
     }, [station, stationId]);
 
     return (
@@ -31,7 +38,7 @@ export const Parada : React.FC<StationRouteParameters> = (props: StationRoutePar
                     <div className="col-6">
                         <div className="card">
                             <div className="card-body">
-                                Estacion {station.id} en {station.address.value}
+                                Estacion {station.id} en {station.address.value.streetAddress}
                             </div>
                         </div>
                     </div>
