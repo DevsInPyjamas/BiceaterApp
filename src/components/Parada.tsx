@@ -66,7 +66,11 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                 </div>
                 <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
 
-                    <div className="col" style={{justifyContent: "center"}}><MapComponent/></div>
+                    <div className="col" style={{justifyContent: "center"}}>
+                        {
+                            // <MapComponent allStations={}/>
+                        }
+                    </div>
 
                 </div>
                 <div className="row" style={{marginBottom: "20px"}}>

@@ -1,7 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {MapComponent} from "./MapComponent";
+import {ReducedBieHiringStation} from "../@types/Biceater";
+import {retrieveAllStations} from "../utils/RequestMaker";
 
 export const Welcome : React.FC = () => {
+
+    const [stations, setStations] = useState<ReducedBieHiringStation[]>();
+
+    useEffect(() => {
+        retrieveAllStations().then((result: ReducedBieHiringStation[]) => {
+            setStations(result);
+        })
+    }, []);
 
     return (
         <div className="container">
@@ -11,7 +21,9 @@ export const Welcome : React.FC = () => {
                 </div>
             </div>
             <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
-                <div className="col" style={{justifyContent: "center"}}> <MapComponent/> </div>
+                <div className="col" style={{justifyContent: "center"}}>
+                    {stations && <MapComponent position={[36.72116082659559, -4.464346934397554]} allStations={stations}/>}
+                </div>
             </div>
             <div className="row" style={{marginBottom: "20px"}}>
                 <div className="col-6">
