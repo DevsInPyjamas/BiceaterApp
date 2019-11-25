@@ -43,3 +43,7 @@ export const login = async (username: string, password: string) => {
         method: 'POST'
     });
 };
+
+export const datosAbiertos = async () => {
+    return await fetch('https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTocupestacbici/ocupestacbicifiware.json');
+};
