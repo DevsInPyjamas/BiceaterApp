@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import {Navbar} from "./components/Navbar";
 
 ReactDOM.render(
     <BrowserRouter>

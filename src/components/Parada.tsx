@@ -31,7 +31,7 @@ export const Parada : React.FC<StationRouteParameters> = (props: StationRoutePar
                     <div className="col-6">
                         <div className="card">
                             <div className="card-body">
-                                Estacion {station.id}
+                                Estacion {station.id} en {station.address.value}
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,11 @@ export const Parada : React.FC<StationRouteParameters> = (props: StationRoutePar
                 </div>
                 <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
 
-                    <div className="col" style={{justifyContent: "center"}}><MapComponent/></div>
+                    <div className="col" style={{justifyContent: "center"}}>
+                        {
+                            // <MapComponent allStations={}/>
+                        }
+                    </div>
 
                 </div>
                 <div className="row" style={{marginBottom: "20px"}}>

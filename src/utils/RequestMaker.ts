@@ -1,4 +1,4 @@
-import {BikeHireDockingStation, User} from "../@types/Biceater";
+import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/Biceater";
 
 const API = '/api';
 
@@ -49,5 +49,5 @@ export const retrieveStation = async (stationId: number) => {
 };
 
 export const retrieveAllStations = async () => {
-    return await baseRequest<BikeHireDockingStation[]>('/stations');
+    return await baseRequest<ReducedBieHiringStation[]>('/stations/');
 };

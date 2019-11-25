@@ -91,3 +91,7 @@ export interface ValueDireccion {
     streetAddress : string;
     type : string;
 }
+
+export interface ReducedBieHiringStation {
+    [index: string]: [ValueLocalizacion, ValueDireccion]
+}
