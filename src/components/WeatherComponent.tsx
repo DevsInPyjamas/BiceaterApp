@@ -7,23 +7,17 @@ export const WeatherComponent : React.FC = () => {
     const [weather, setWeather] = useState<OpenWeather>();
 
     useEffect(() => {
-        const fetchWeather = () => {
+        if(weather === undefined) {
             weatherRequest().then((result: any) => {
                 setWeather(result);
+                console.log(result);
             });
-        };
-        fetchWeather();
+        }
     }, [weather]);
 
-    if(weather){
-        return (
-            <div>
-                <p>{weather.name}: {weather.weather[0].description} ({weather.mainElem.temp}ºC)</p>
-            </div>
-        );
-    }else{
-        return(
-            <div/>
-        );
-    }
+    return (
+        <div>
+            { weather && <p>{weather.name}: {weather.weather[0].description} ({weather.main.temp}ºC)</p>}
+        </div>
+    );
 };

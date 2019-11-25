@@ -41,10 +41,10 @@ export interface Rating {
 }
 
 export interface OpenWeather {
-    coordinate: Coordinate;
-    weather: WeatherInfo;
+    coord: Coordinate;
+    weather: Info[];
     base: string;
-    mainElem: MainElem;
+    main: MainElem;
     visibility: number;
     wind: Wind;
     clouds: Clouds;
@@ -59,10 +59,6 @@ export interface OpenWeather {
 export interface Coordinate {
     lon: number;
     lat: number;
-}
-
-export interface WeatherInfo {
-    [index:number]:Info;
 }
 
 export interface Info {
@@ -83,7 +79,6 @@ export interface MainElem {
 export interface Wind {
     speed: number;
     deg: number;
-    gust: number;
 }
 
 export interface Clouds {
