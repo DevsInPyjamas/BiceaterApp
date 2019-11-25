@@ -10,14 +10,12 @@ export type Genre = 'Male' | 'Female';
 export interface User {
     userId: number;
     username: string;
-    email: string;
     name: string;
     surname: string;
     dateOfBirth: Date;
     imagePath: string;
     bio: string;
     genre: Genre;
-    hobbies: string;
 }
 
 export interface BikeHireDockingStation {
