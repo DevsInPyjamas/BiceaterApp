@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
-import Routing from "./RoutingMachine";
+import L from "leaflet";
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import "../styles/index.css"
 import GeoSearch from "./GeoSearch";
 import {ReducedBieHiringStation} from "../@types/Biceater";
@@ -27,7 +28,16 @@ export const MapComponent : React.FC<MapProps> = ({position, allStations}: MapPr
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               />
               <GeoSearch map={map} />
-              {position && <Marker position={position}>
+              {position && <Marker position={position} icon={L.icon({
+                  iconUrl: require('../assets/location-icon.png'),
+                  iconRetinaUrl: require('../assets/location-icon.png'),
+                  shadowUrl: iconShadow,
+                  iconAnchor: [20, 40],
+                  popupAnchor: [0, -35],
+                  iconSize: [40, 40],
+                  shadowSize: [29, 40],
+                  shadowAnchor: [7, 40],
+              })}>
                   <Popup>Usuario</Popup>
               </Marker>}
               {allStations.map((station) => {
