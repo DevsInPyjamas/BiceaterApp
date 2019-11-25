@@ -3,25 +3,44 @@ import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
 import {retrieveStation} from "../utils/RequestMaker";
-import { BikeHireDockingStation } from "../@types/Biceater";
+import {BikeHireDockingStation, ReducedBieHiringStation} from "../@types/Biceater";
 
-interface StationRouteParameters extends RouteComponentProps{
+interface RouteParameters {
     stationId: string;
 }
 
-export const Parada : React.FC<StationRouteParameters> = (props: StationRouteParameters) => {
+type StationProps = RouteComponentProps<RouteParameters>
 
-    const stationId = Number(props.stationId);
+export const Parada : React.FC<StationProps> = (props: StationProps) => {
+
+    const stationId = parseInt(props.match.params.stationId);
+
+    console.log(stationId);
 
     const [station, setStation] = useState<BikeHireDockingStation>();
+    const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
 
     useEffect(() => {
-        retrieveStation(stationId).then((result: BikeHireDockingStation) => {
-            setStation(result);
-        }).catch((err: any) => {
-            console.log('Fuck');
-        });
+        if(station === undefined) {
+            retrieveStation(stationId).then((result: BikeHireDockingStation) => {
+                setStation(result);
+                setSimpleStation([{
+                    [`${stationId}`]:
+                    [
+                        {
+                            type:  result.location.value.type,
+                            coordinates: [+result.location.value.coordinates[0], +result.location.value.coordinates[1]]
+                        },
+                        result.address.value
+                    ]
+                }]);
+            }).catch((err: any) => {
+                console.log('Fuck');
+            });
+        }
     }, [station, stationId]);
+
+    console.log(simpleStation);
 
     return (
         <div className="container">
@@ -31,7 +50,7 @@ export const Parada : React.FC<StationRouteParameters> = (props: StationRoutePar
                     <div className="col-6">
                         <div className="card">
                             <div className="card-body">
-                                Estacion {station.id} en {station.address.value}
+                                Estacion {station.id} en {station.address.value.streetAddress}
                             </div>
                         </div>
                     </div>
@@ -60,9 +79,7 @@ export const Parada : React.FC<StationRouteParameters> = (props: StationRoutePar
                 <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
 
                     <div className="col" style={{justifyContent: "center"}}>
-                        {
-                            // <MapComponent allStations={}/>
-                        }
+                        {simpleStation && <MapComponent allStations={simpleStation} zoom={17}/>}
                     </div>
 
                 </div>
