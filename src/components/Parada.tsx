@@ -3,7 +3,7 @@ import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
 import {retrieveStation} from "../utils/RequestMaker";
-import { BikeHireDockingStation } from "../@types/Biceater";
+import {BikeHireDockingStation, ReducedBieHiringStation} from "../@types/Biceater";
 
 interface RouteParameters {
     stationId: string;
@@ -18,17 +18,29 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     console.log(stationId);
 
     const [station, setStation] = useState<BikeHireDockingStation>();
+    const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
 
     useEffect(() => {
         if(station === undefined) {
             retrieveStation(stationId).then((result: BikeHireDockingStation) => {
                 setStation(result);
-                console.log(station);
+                setSimpleStation([{
+                    [`${stationId}`]:
+                    [
+                        {
+                            type:  result.location.value.type,
+                            coordinates: [+result.location.value.coordinates[0], +result.location.value.coordinates[1]]
+                        },
+                        result.address.value
+                    ]
+                }]);
             }).catch((err: any) => {
                 console.log('Fuck');
             });
         }
     }, [station, stationId]);
+
+    console.log(simpleStation);
 
     return (
         <div className="container">
@@ -67,9 +79,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                 <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
 
                     <div className="col" style={{justifyContent: "center"}}>
-                        {
-                            // <MapComponent allStations={}/>
-                        }
+                        {simpleStation && <MapComponent allStations={simpleStation} zoom={17}/>}
                     </div>
 
                 </div>

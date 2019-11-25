@@ -22,7 +22,10 @@ export const Welcome : React.FC = () => {
             </div>
             <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
-                    {stations && <MapComponent position={[36.72116082659559, -4.464346934397554]} allStations={stations}/>}
+                    {stations && <MapComponent
+                        position={[36.72116082659559, -4.464346934397554]}
+                        allStations={stations}
+                        zoom={13}/>}
                 </div>
             </div>
             <div className="row" style={{marginBottom: "20px"}}>

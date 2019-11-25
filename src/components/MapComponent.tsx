@@ -8,9 +8,10 @@ import {ReducedBieHiringStation} from "../@types/Biceater";
 interface MapProps {
     position?: [number, number];
     allStations: ReducedBieHiringStation[];
+    zoom: number;
 }
 
-export const MapComponent : React.FC<MapProps> = ({position, allStations}: MapProps) => {
+export const MapComponent : React.FC<MapProps> = ({position, allStations, zoom}: MapProps) => {
     const [isMapInit, setIsMapInit] = useState<boolean>(false);
     const [map, setMap] = useState<any>();
     const saveMap = (map: any) => {
@@ -18,10 +19,21 @@ export const MapComponent : React.FC<MapProps> = ({position, allStations}: MapPr
         setMap(map);
     };
 
+    const evaluateMapCenter = () => {
+        if(position) {
+            return position;
+        } else {
+            const key = Object.keys(allStations[0])[0];
+            return allStations[0][key][0].coordinates;
+        }
+    };
+
+    const mapCenter = evaluateMapCenter();
+
     // {isMapInit && <Routing map={map} fromCoordinates={position} toCoordinates={position2}/>}
     return (
       <>
-          <Map center={position} zoom={13} id="mapid" ref={saveMap}>
+          <Map center={mapCenter} zoom={zoom} id="mapid" ref={saveMap}>
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
