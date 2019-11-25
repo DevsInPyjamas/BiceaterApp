@@ -12,9 +12,8 @@ export const Routes : React.FC = () => {
     return (
         <Switch>
             <Route path='/login' component={LoginForm}/>
-            <Route path='/parada' component={Parada}/>
+            <Route path='/station/:stationId' component={Parada}/>
             <Route path='/welcome' component={Welcome} />
-            <Route exact path='/' component={MapComponent}/>
         </Switch>
     );
 };

@@ -1,4 +1,4 @@
-import { User } from "../@types/Biceater";
+import {BikeHireDockingStation, User} from "../@types/Biceater";
 
 const API = '/api';
 
@@ -17,7 +17,7 @@ const API = '/api';
  * query all the users from the API, in the call signature it is required to add the <User>
  * interface to tell typescript that the exact result type it's APIResult<User>
  * */
-export const baseRequest = async<T> (route: string, config: RequestInit): Promise<T> => {
+export const baseRequest = async<T> (route: string, config?: RequestInit): Promise<T> => {
     config = { credentials: 'include', ...(config || {})};
     const requestResult = await fetch(`${API}${route}`, config);
     if(requestResult.status === 401) {
@@ -30,11 +30,11 @@ export const baseRequest = async<T> (route: string, config: RequestInit): Promis
 };
 
 export const getAllUsers = async () => {
-    return await baseRequest<User[]>('/users', { method: "GET" });
+    return await baseRequest<User[]>('/users');
 };
 
 export const filterUsersByUsername = async (filter: string) => {
-    return await baseRequest<User>(`/users/${filter}`, { method: "GET" });
+    return await baseRequest<User>(`/users/${filter}`);
 };
 
 export const login = async (username: string, password: string) => {
@@ -44,6 +44,10 @@ export const login = async (username: string, password: string) => {
     });
 };
 
-export const datosAbiertos = async () => {
-    return await fetch('https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTocupestacbici/ocupestacbicifiware.json');
+export const retrieveStation = async (stationId: number) => {
+    return await baseRequest<BikeHireDockingStation>(`/stations/${stationId}`);
+};
+
+export const retrieveAllStations = async () => {
+    return await baseRequest<BikeHireDockingStation[]>('/stations');
 };
