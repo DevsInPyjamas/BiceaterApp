@@ -1,8 +1,6 @@
 // Here we will put the types of the project
 // for example
 
-import Status = jest.Status;
-
 export interface JSONResult<T> {
     [index: string]: T;
 }
@@ -23,18 +21,14 @@ export interface User {
 }
 
 export interface BikeHireDockingStation {
-    // rellenar con datos de la api publica
-    name: string;
-    surname: string;
-    dateOfBirth: Date;
-    imagePath: string;
-    bio: string;
-    genre: Genre;
-    hobbies: string;
-}
-
-export interface BikeHireDockingStation {
-    // rellenar con datos de la api publica
+    status : Status;
+    totalSlotNumber : TotalSlotNumber;
+    availableBikeNumber: AvailableBikeNumber;
+    freeSlotNumber : FreeSlotNumber;
+    location : Localizacion;
+    address : Direccion;
+    type : string;
+    id : string;
 }
 
 export interface Comment {
@@ -42,8 +36,8 @@ export interface Comment {
     text: string;
     date: Date;
     authorId: User;
-    answersTo: Comment;
-    bikeHireDockingStation: BikeHireDockingStation;
+    answersTo?: Comment;
+    bikeHireDockingStation?: BikeHireDockingStation;
 }
 
 export interface Rating {
@@ -51,17 +45,6 @@ export interface Rating {
     bikeHireDockingStation: BikeHireDockingStation;
     rating: 1 | 2 | 3 | 4 | 5;
     author: User;
-}
-
-export interface datosAbierto{
-        status : Status;
-        totalSlotNumber : TotalSlotNumber;
-        availableBikeNumber: AvailableBikeNumber;
-        freeSlotNumber : FreeSlotNumber;
-        location : Localizacion;
-        address : Direccion;
-        type : string;
-        id : string;
 }
 
 export interface Status{
@@ -101,28 +84,12 @@ export interface ValueLocalizacion {
 
 export interface Direccion {
     type : string;
-    value: valueDireccion;
+    value: ValueDireccion;
 }
 
-export interface valueDireccion {
+export interface ValueDireccion {
     addressCountry : string;
     addressLocality : string;
     streetAddress : string;
     type : string;
-}
-
-export interface Comment {
-    commentId: number;
-    text: string;
-    date: Date;
-    authorId: User;
-    answersTo: Comment;
-    bikeHireDockingStation: BikeHireDockingStation;
-}
-
-export interface Rating {
-    ratingId: number;
-    bikeHireDockingStation: BikeHireDockingStation;
-    rating: 1 | 2 | 3 | 4 | 5;
-    author: User;
 }
