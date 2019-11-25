@@ -4,7 +4,6 @@ import {
     Route,
 } from "react-router-dom";
 import { LoginForm } from './components/LoginForm';
-import { MapComponent } from "./components/MapComponent";
 import { Parada } from './components/Parada';
 import {Welcome} from "./components/Welcome";
 
@@ -13,7 +12,7 @@ export const Routes : React.FC = () => {
         <Switch>
             <Route path='/login' component={LoginForm}/>
             <Route path='/station/:stationId' component={Parada}/>
-            <Route path='/welcome' component={Welcome} />
+            <Route exact path='/' component={Welcome} />
         </Switch>
     );
 };
