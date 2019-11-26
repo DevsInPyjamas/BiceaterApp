@@ -3,6 +3,7 @@ import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import Routing from "./RoutingMachine";
 import "../styles/index.css"
 import {Navbar} from "./Navbar";
+import GeoSearch from "./GeoSearch";
 
 export const MapComponent : React.FC = () => {
     const position: [number, number] = [36.719213043469765, -4.455949667115419];
@@ -22,6 +23,7 @@ export const MapComponent : React.FC = () => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               />
+              <GeoSearch map={map} />
               <Marker position={position}>
                   <Popup>Resi del Alejandro</Popup>
               </Marker>
@@ -29,7 +31,6 @@ export const MapComponent : React.FC = () => {
                   <Popup>Resi del Parejo</Popup>
               </Marker>
               {isMapInit && <Routing map={map} fromCoordinates={position} toCoordinates={position2}/>}
-
           </Map>
       </>
   )
