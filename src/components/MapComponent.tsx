@@ -17,6 +17,7 @@ export const MapComponent : React.FC = () => {
     return (
       <>
           <Navbar/>
+          I'm trying the routing components from react.
           <Map center={position} zoom={13} id="mapid" ref={saveMap}>
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
