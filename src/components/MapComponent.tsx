@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from "leaflet";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -13,12 +13,13 @@ interface MapProps {
 }
 
 export const MapComponent : React.FC<MapProps> = ({position, allStations, zoom}: MapProps) => {
+    /* This is used to Routing in Map
     const [isMapInit, setIsMapInit] = useState<boolean>(false);
     const [map, setMap] = useState<any>();
     const saveMap = (map: any) => {
         setIsMapInit(true);
         setMap(map);
-    };
+    };*/
 
     const evaluateMapCenter = () => {
         if(position) {
@@ -32,14 +33,15 @@ export const MapComponent : React.FC<MapProps> = ({position, allStations, zoom}:
     const mapCenter = evaluateMapCenter();
 
     // {isMapInit && <Routing map={map} fromCoordinates={position} toCoordinates={position2}/>}
+    //ref={saveMap} in <Map>
     return (
       <>
-          <Map center={mapCenter} zoom={zoom} id="mapid" ref={saveMap} maxZoom={19} >
+          <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} >
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               />
-              <GeoSearch map={map} />
+              <GeoSearch />
               {position && <Marker position={position} icon={L.icon({
                   iconUrl: require('../assets/location-icon.png'),
                   iconRetinaUrl: require('../assets/location-icon.png'),
