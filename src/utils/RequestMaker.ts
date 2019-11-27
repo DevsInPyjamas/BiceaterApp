@@ -60,3 +60,12 @@ export const weatherRequest = async () => {
 export const retrieveComments = async (userId: number, taking: number, page: number) => {
     return await baseRequest<Comment>(`/users/${userId}/comments/?taking=${taking}&page=${page}`);
 };
+
+export const calculateBestRoute = async (currentLocation: [number, number]) => {
+    return await fetch(`${API}/routes/calculate`, {
+        method: 'POST',
+        body: JSON.stringify({ currentLocation: currentLocation }),
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+    });
+};
