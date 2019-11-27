@@ -5,6 +5,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import "../styles/index.css"
 import GeoSearch from "./GeoSearch";
 import {ReducedBieHiringStation} from "../@types/Biceater";
+import {useHistory} from "react-router";
 
 interface MapProps {
     position?: [number, number];
@@ -20,6 +21,12 @@ export const MapComponent : React.FC<MapProps> = ({position, allStations, zoom}:
         setIsMapInit(true);
         setMap(map);
     };*/
+
+    let history = useHistory();
+
+    function handleClick(event: any) {
+        history.push(`/station/${event.target.value}`);
+    }
 
     const evaluateMapCenter = () => {
         if(position) {
@@ -52,12 +59,16 @@ export const MapComponent : React.FC<MapProps> = ({position, allStations, zoom}:
                   shadowSize: [29, 40],
                   shadowAnchor: [7, 40],
               })}>
-                  <Popup>Usuario</Popup>
+                  <Popup>Tu posici&oacute;n</Popup>
               </Marker>}
               {allStations.map((station) => {
                   const key = Object.keys(station)[0];
                   return <Marker key={key} position={station[key][0].coordinates}>
-                      <Popup>Estacion de {station[key][1].streetAddress}</Popup>
+                      <Popup>
+                          <button value={key} onClick={handleClick} className="btn btn-outline-dark">
+                                Estacion de {station[key][1].streetAddress}
+                          </button>
+                      </Popup>
                   </Marker>
               })}
           </Map>
