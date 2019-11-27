@@ -36,7 +36,7 @@ export const MapComponent : React.FC<MapProps> = ({position, allStations, zoom}:
     //ref={saveMap} in <Map>
     return (
       <>
-          <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} >
+          <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={15}>
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
