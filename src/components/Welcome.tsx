@@ -15,11 +15,6 @@ export const Welcome : React.FC = () => {
 
     return (
         <div className="container">
-            <div className="row" style={{marginTop: "10px"}}>
-                <div className="col-4">
-                    <button type="button" className="btn btn-primary"  style= {{float: "right"}}>Editar Perfil</button>
-                </div>
-            </div>
             <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations && <MapComponent
