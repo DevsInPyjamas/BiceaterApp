@@ -1,5 +1,4 @@
 import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/Biceater";
-import {getCookie} from './NumberUtilities';
 
 const API = '/api';
 
@@ -63,13 +62,10 @@ export const retrieveComments = async (userId: number, taking: number, page: num
 };
 
 export const calculateBestRoute = async (currentLocation: [number, number]) => {
-    const csrfToken = getCookie('csrftoken');
-    if(csrfToken) {
-        return await fetch(`${API}/routes/calculate`, {
-            method: 'POST',
-            body: JSON.stringify({ currentLocation: currentLocation }),
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken }
-        });
-    }
+    return await fetch(`${API}/routes/calculate`, {
+        method: 'POST',
+        body: JSON.stringify({ currentLocation: currentLocation }),
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+    });
 };

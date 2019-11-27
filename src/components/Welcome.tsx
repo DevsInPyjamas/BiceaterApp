@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {MapComponent} from "./MapComponent";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {calculateBestRoute, retrieveAllStations} from "../utils/RequestMaker";
-import {getCookie} from "../utils/NumberUtilities";
 
 export const Welcome : React.FC = () => {
 
@@ -14,10 +13,6 @@ export const Welcome : React.FC = () => {
         })
     }, []);
 
-    const test1 = useCallback(() => {
-        calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res: any) => console.log(res));
-    }, []);
-
     return (
         <div className="container">
             <div className="row" style={{marginTop: "10px"}}>
@@ -25,7 +20,6 @@ export const Welcome : React.FC = () => {
                     <button type="button" className="btn btn-primary"  style= {{float: "right"}}>Editar Perfil</button>
                 </div>
             </div>
-            <button onClick={test1}> test 1 </button>
             <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations && <MapComponent
