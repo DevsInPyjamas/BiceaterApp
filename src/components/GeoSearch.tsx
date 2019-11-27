@@ -1,11 +1,8 @@
-import {MapControl, MapControlProps, withLeaflet} from "react-leaflet";
+import {MapControl, withLeaflet} from "react-leaflet";
 import {GeoSearchControl, OpenStreetMapProvider} from "leaflet-geosearch";
 
-interface GeoSearchProps extends MapControlProps{
-    map: any
-}
 
-export class GeoSearch extends MapControl<GeoSearchProps> {
+export class GeoSearch extends MapControl {
     createLeafletElement() {
         const provider = new OpenStreetMapProvider();
         return new GeoSearchControl({
