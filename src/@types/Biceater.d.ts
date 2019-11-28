@@ -19,7 +19,14 @@ export interface User {
 }
 
 export interface BikeHireDockingStation {
-    // rellenar con datos de la api publica
+    status : Status;
+    totalSlotNumber : TotalSlotNumber;
+    availableBikeNumber: AvailableBikeNumber;
+    freeSlotNumber : FreeSlotNumber;
+    location : Localizacion;
+    address : Direccion;
+    type : string;
+    id : string;
 }
 
 export interface Comment {
@@ -27,8 +34,8 @@ export interface Comment {
     text: string;
     date: Date;
     authorId: User;
-    answersTo: Comment;
-    bikeHireDockingStation: BikeHireDockingStation;
+    answersTo?: Comment;
+    bikeHireDockingStation?: BikeHireDockingStation;
 }
 
 export interface Rating {
@@ -89,4 +96,55 @@ export interface Sys{
     country: string;
     sunrise: number;
     sunset: number;
+}
+
+export interface Status{
+    type : string;
+    value : string;
+}
+
+export interface TotalSlotNumber {
+    type : string;
+    value : number;
+}
+
+export interface AvailableBikeNumber {
+    type : string;
+    value : number;
+}
+
+export interface FreeSlotNumber {
+    type : string;
+    value : number;
+}
+
+export interface FreeSlotNumber {
+    type : string;
+    value : number;
+}
+
+export interface Localizacion {
+    type : string;
+    value : ValueLocalizacion;
+}
+
+export interface ValueLocalizacion {
+    type : string;
+    coordinates : [number, number];
+}
+
+export interface Direccion {
+    type : string;
+    value: ValueDireccion;
+}
+
+export interface ValueDireccion {
+    addressCountry : string;
+    addressLocality : string;
+    streetAddress : string;
+    type : string;
+}
+
+export interface ReducedBieHiringStation {
+    [index: string]: [ValueLocalizacion, ValueDireccion]
 }
