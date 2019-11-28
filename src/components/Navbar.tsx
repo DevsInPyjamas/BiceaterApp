@@ -1,10 +1,11 @@
 import React from 'react';
 import {WeatherComponent} from "./WeatherComponent";
+import {Link} from "react-router-dom";
 
 export const Navbar : React.FC = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <span className="navbar-brand mb-0 h1">Biceater</span>
+            <Link to="/"><span className="navbar-brand mb-0 h1">Biceater</span></Link>
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 </ul>
