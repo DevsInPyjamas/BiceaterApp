@@ -10,7 +10,6 @@ export const WeatherComponent : React.FC = () => {
         if(weather === undefined) {
             weatherRequest().then((result: any) => {
                 setWeather(result);
-                console.log(result);
             });
         }
     }, [weather]);

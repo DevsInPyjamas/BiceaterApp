@@ -62,10 +62,20 @@ export const retrieveComments = async (userId: number, taking: number, page: num
 };
 
 export const calculateBestRoute = async (currentLocation: [number, number]) => {
-    return await fetch(`${API}/routes/calculate`, {
+    const request = await fetch(`${API}/routes/calculate`, {
         method: 'POST',
         body: JSON.stringify({ currentLocation: currentLocation }),
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' }
     });
+
+    if(request.status === 401) {
+        window.location.replace('/login');
+    }
+
+    if(!request.ok) {
+        throw new Error('ERROR:\n' + request.statusText);
+    }
+
+    return request.json();
 };
