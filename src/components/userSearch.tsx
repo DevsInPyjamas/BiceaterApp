@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Navbar} from "./Navbar";
 
-export const userSearch: React.FC = () => {
+export const UserSearch: React.FC = () => {
     const [user, setUser] = useState("");
     const [allUsers, setAllUsers] = useState([]);
 

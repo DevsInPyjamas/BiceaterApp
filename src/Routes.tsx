@@ -7,7 +7,7 @@ import { LoginForm } from './components/LoginForm';
 import { MapComponent } from "./components/MapComponent";
 import { Parada } from './components/Parada';
 import {Welcome} from "./components/Welcome";
-import {userSearch} from "./components/userSearch";
+import {UserSearch} from "./components/userSearch";
 
 export const Routes : React.FC = () => {
     return (
@@ -15,7 +15,7 @@ export const Routes : React.FC = () => {
             <Route path='/login' component={LoginForm}/>
             <Route path='/parada' component={Parada}/>
             <Route path='/welcome' component={Welcome} />
-            <Route path='/userSearch' component={userSearch} />
+            <Route path='/UserSearch' component={UserSearch} />
             <Route exact path='/' component={MapComponent}/>
         </Switch>
     );

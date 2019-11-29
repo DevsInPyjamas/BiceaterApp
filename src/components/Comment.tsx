@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const Comments: React.FC<any> = (props) => {
+export const Comment: React.FC<any> = (props) => {
 
     const {allComments} = props;
 
