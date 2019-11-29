@@ -120,7 +120,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     </div>
                 </div>
 
-                                    <Comments allComments={allComments}>
+                                    <Comments allComments={allComments}/>
 
 
             </div>
