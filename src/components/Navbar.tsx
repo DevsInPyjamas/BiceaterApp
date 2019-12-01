@@ -17,7 +17,9 @@ export const Navbar : React.FC = () => {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
                 <div className="divider-vertical"/>
-                <button type="button" className="btn btn-primary"  style= {{float: "right"}}>Editar Perfil</button>
+                <a href="#" className="btn btn-primary" role="button">Editar Perfil</a>
+                <div className="divider-vertical"/>
+                <a href="#" className="btn btn-primary" role="button">Cerrar Sesion</a>
             </div>
         </nav>
     );
