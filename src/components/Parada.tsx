@@ -20,7 +20,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [comment, setComment] = useState<string>('');
 
     useEffect(() => {
-        if(station === undefined) {
+        if(!station) {
             retrieveStation(stationId).then((result: BikeHireDockingStation) => {
                 setStation(result);
                 setSimpleStation([{
@@ -33,7 +33,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                         result.address.value
                     ]
                 }]);
-            }).catch((err: any) => {
+            }).catch((err: unknown) => {
                 console.log('Fuck');
             });
         }
@@ -41,11 +41,11 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
-    }, [comment]);
+    }, []);
 
-    const sendCommentHandler = useCallback((event:any)=>{
+    const sendCommentHandler = useCallback((event: unknown)=>{
         sendComment(comment, stationId).then();
-    }, [comment]);
+    }, [stationId, comment]);
 
     return (
         <div className="container">
