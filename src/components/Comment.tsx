@@ -1,7 +1,13 @@
 import React from 'react';
 
+interface CommentProps {
+    author: string;
+    content: string;
+    date:string;
+}
 
-export const Comments: React.FC<any> = (props) => {
+
+export const Comments: React.FC<CommentProps> = (props) => {
 
     const {allComments} = props;
 
@@ -35,6 +41,5 @@ export const Comments: React.FC<any> = (props) => {
         );
     });
 
-    return (allCommentsFiltered
-    );
+    return (allCommentsFiltered);
 };

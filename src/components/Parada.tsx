@@ -120,7 +120,9 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     </div>
                 </div>
 
-                                    <Comments allComments={allComments}/>
+                {allComments.map((comment) => {
+                    return <Comment author={commnet.author}/>
+                })}
 
 
             </div>
