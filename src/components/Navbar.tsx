@@ -1,10 +1,11 @@
 import React from 'react';
 import {WeatherComponent} from "./WeatherComponent";
+import {Link} from "react-router-dom";
 
 export const Navbar : React.FC = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <span className="navbar-brand mb-0 h1">Biceater</span>
+            <Link to="/"><span className="navbar-brand mb-0 h1">Biceater</span></Link>
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 </ul>
@@ -16,7 +17,9 @@ export const Navbar : React.FC = () => {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
                 <div className="divider-vertical"/>
-                <button type="button" className="btn btn-primary"  style= {{float: "right"}}>Editar Perfil</button>
+                <Link to="#" className="btn btn-primary" role="button">Editar Perfil</Link>
+                <div className="divider-vertical"/>
+                <Link to="#" className="btn btn-primary" role="button">Cerrar Sesion</Link>
             </div>
         </nav>
     );

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
-import {retrieveStation} from "../utils/RequestMaker";
+import {retrieveStation, sendComment} from "../utils/RequestMaker";
 import {BikeHireDockingStation, ReducedBieHiringStation} from "../@types/Biceater";
 
 interface RouteParameters {
@@ -15,13 +15,12 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     const stationId = parseInt(props.match.params.stationId);
 
-    console.log(stationId);
-
     const [station, setStation] = useState<BikeHireDockingStation>();
     const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
+    const [comment, setComment] = useState<string>('');
 
     useEffect(() => {
-        if(station === undefined) {
+        if(!station) {
             retrieveStation(stationId).then((result: BikeHireDockingStation) => {
                 setStation(result);
                 setSimpleStation([{
@@ -34,13 +33,19 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                         result.address.value
                     ]
                 }]);
-            }).catch((err: any) => {
+            }).catch((err: unknown) => {
                 console.log('Fuck');
             });
         }
     }, [station, stationId]);
 
-    console.log(simpleStation);
+    const commentHandler = useCallback((event: any) => {
+        setComment(event.target.value);
+    }, []);
+
+    const sendCommentHandler = useCallback((event: unknown)=>{
+        sendComment(comment, stationId).then();
+    }, [stationId, comment]);
 
     return (
         <div className="container">
@@ -100,11 +105,9 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                                                 resize: "both",
                                                 height: "136px",
                                                 marginBottom: "10px"
-                                            }}>
-                                            Hey... say something!
-                                            </textarea>
+                                            }} onChange={commentHandler} value={comment} placeholder='Comenta lo que quieras.'/>
                                     </div>
-                                    <button type="button" className="btn btn-primary">Comenta!</button>
+                                    <button type="button" className="btn btn-primary" onClick={sendCommentHandler}>Comenta!</button>
                                 </form>
                             </div>
                         </div>
