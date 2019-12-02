@@ -29,6 +29,9 @@ export class Routing extends MapLayer<RoutingProps> {
                 ]
             },
             show: false,
+            router: new L.Routing.OSRMv1({
+                serviceUrl: 'http://10.10.5.156:5000/route/v1'
+            })
         }).addTo(map.leafletElement);
         return leafletElement.getPlan();
     }
