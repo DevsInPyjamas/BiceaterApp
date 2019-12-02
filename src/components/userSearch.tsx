@@ -3,15 +3,18 @@ import {Navbar} from "./Navbar";
 
 export const UserSearch: React.FC = () => {
     const [user, setUser] = useState("");
-    const [allUsers, setAllUsers] = useState([]);
+    const [allUsers, setAllUsers] = useState();
 
     useEffect(() => {
-        fetch('/views.all_users')
-            .then(response => {
-                return response.json()
-            }).then(data => {
+        if (!allUsers){
+            fetch('/views.all_users')
+                .then(response => {
+                    return response.json()
+                }).then(data => {
                 setAllUsers(data);
             })
+        }
+
     }, []);
 
     const allUsersFiltered= allUsers.filter((actualUser:any)=>{
