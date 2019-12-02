@@ -53,7 +53,7 @@ export const retrieveAllStations = async () => {
 };
 
 export const retrieveUserInfo = async (userId: number) => {
-  return await baseRequest<User>(`users/${userId}`)
+  return await baseRequest<User>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
