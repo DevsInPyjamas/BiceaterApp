@@ -51,6 +51,10 @@ export class Routing extends MapLayer<RoutingProps> {
                     const marker = (waypointIndex === 0) ? L.marker(waypoint.latLng, {icon: icon}) : L.marker(waypoint.latLng);
                     return marker.bindPopup(message);
                 },
+            }),
+            router: new L.Routing.OSRMv1({
+                serviceUrl: 'http://10.10.5.156:5000/route/v1',
+                profile: 'foot'
             })
         }).addTo(map.leafletElement);
         return leafletElement.getPlan();
