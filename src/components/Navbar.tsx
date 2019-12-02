@@ -1,8 +1,16 @@
 import React from 'react';
 import {WeatherComponent} from "./WeatherComponent";
 import {Link} from "react-router-dom";
+import {logout} from "../utils/RequestMaker";
 
 export const Navbar : React.FC = () => {
+
+    const doLogout = () => {
+        logout().then(() => {
+            window.location.assign('/login');
+        });
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to="/"><span className="navbar-brand mb-0 h1">Biceater</span></Link>
@@ -17,9 +25,9 @@ export const Navbar : React.FC = () => {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
                 <div className="divider-vertical"/>
-                <a href="#" className="btn btn-primary" role="button">Editar Perfil</a>
+                <Link to="#" className="btn btn-primary" role="button">Editar Perfil</Link>
                 <div className="divider-vertical"/>
-                <a href="#" className="btn btn-primary" role="button">Cerrar Sesion</a>
+                <button onClick={doLogout} className='btn btn-primary'>Cerrar Sesion</button>
             </div>
         </nav>
     );
