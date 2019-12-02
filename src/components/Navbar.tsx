@@ -26,7 +26,9 @@ export const Navbar : React.FC<any> = (props) => {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={onSubmit}>Buscar</button>
                 </form>
                 <div className="divider-vertical"/>
-                <button type="button" className="btn btn-primary"  style= {{float: "right"}}>Editar Perfil</button>
+                <Link to="#" className="btn btn-primary" role="button">Editar Perfil</Link>
+                <div className="divider-vertical"/>
+                <Link to="#" className="btn btn-primary" role="button">Cerrar Sesion</Link>
             </div>
         </nav>
     );

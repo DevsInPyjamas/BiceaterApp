@@ -2,6 +2,15 @@ import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/B
 
 const API = '/api';
 
+const calculateUrl = () => {
+    let url;
+    if(process.env.NODE_ENV === 'production') {
+        url = '/api/login/google-oauth2';
+    } else {
+        url = `http://localhost:4000/api/login/google-oauth2`;
+    }
+    return url;
+};
 /**
  * According to https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Utilizando_Fetch
  * fetch receives 2 arguments, the Input and the Request Init
@@ -21,7 +30,7 @@ export const baseRequest = async<T> (route: string, config?: RequestInit): Promi
     config = { credentials: 'include', ...(config || {})};
     const requestResult = await fetch(`${API}${route}`, config);
     if(requestResult.status === 401) {
-        window.location.replace('/login');
+        window.location.assign(calculateUrl());
     }
     if(!requestResult.ok) {
         throw new Error('ERROR:\n' + requestResult.statusText);
@@ -35,13 +44,6 @@ export const getAllUsers = async () => {
 
 export const filterUsersByUsername = async (filter: string) => {
     return await baseRequest<User>(`/users/${filter}`);
-};
-
-export const login = async (username: string, password: string) => {
-    return fetch(`${API}/login`, {
-        body: JSON.stringify({ username, password }),
-        method: 'POST'
-    });
 };
 
 export const retrieveStation = async (stationId: number) => {
@@ -78,4 +80,13 @@ export const calculateBestRoute = async (currentLocation: [number, number]) => {
     }
 
     return request.json();
+};
+
+export const sendComment = async (comment: string, bikeDockingStationId: number) => {
+    return fetch(`${API}/create/comment`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ comment, bikeDockingStationId }),
+        method: 'POST'
+    });
 };
