@@ -79,3 +79,12 @@ export const calculateBestRoute = async (currentLocation: [number, number]) => {
 
     return request.json();
 };
+
+export const sendComment = async (comment: string, bikeDockingStationId: number) => {
+    return fetch(`${API}/create/comment`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ comment, bikeDockingStationId }),
+        method: 'POST'
+    });
+};
