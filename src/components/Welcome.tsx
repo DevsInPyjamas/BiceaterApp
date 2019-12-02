@@ -14,9 +14,11 @@ export const Welcome : React.FC = () => {
     }, []);
 
     function searchStation(event: any){
-        calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {location: [number, number]}) => {
-            setRoute(res.location);
-        });
+        if(!route) {
+            calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {location: [number, number]}) => {
+                setRoute(res.location);
+            });
+        }
     }
 
     return (
