@@ -3,8 +3,6 @@ import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
 import {retrieveStation} from "../utils/RequestMaker";
-import {Comment} from "./Comment";
-
 import {BikeHireDockingStation, ReducedBieHiringStation} from "../@types/Biceater";
 
 interface RouteParameters {
@@ -122,7 +120,9 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     </div>
                 </div>
 
-                                    <Comment allComments={allComments}/>
+                {allComments.map((comment) => {
+                    return <Comment author={commnet.author}/>
+                })}
 
 
             </div>
@@ -131,7 +131,4 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     );
 };
-
-
-
 
