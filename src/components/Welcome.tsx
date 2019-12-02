@@ -7,6 +7,7 @@ export const Welcome : React.FC = () => {
 
     const [stations, setStations] = useState<ReducedBieHiringStation[]>();
     const [route, setRoute] = useState<[number, number]>();
+    const [direction, setDirection] = useState<string>();
     useEffect(() => {
         retrieveAllStations().then((result: ReducedBieHiringStation[]) => {
             setStations(result);
@@ -15,8 +16,10 @@ export const Welcome : React.FC = () => {
 
     function searchStation(event: any){
         if(!route) {
-            calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {location: [number, number]}) => {
+            calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {direction: string, location: [number, number]}) => {
                 setRoute(res.location);
+                console.log(res.direction);
+                setDirection(res.direction);
             });
         }
     }
@@ -29,7 +32,10 @@ export const Welcome : React.FC = () => {
                         position={[36.72116082659559, -4.464346934397554]}
                         routing={route}
                         allStations={stations}
-                        zoom={13}/>}
+                        zoom={15}
+                        direction={direction}
+                        />
+                    }
                 </div>
             </div>
             <div className="row" style={{marginBottom: "20px"}}>

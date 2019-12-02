@@ -11,12 +11,14 @@ import Routing from "./RoutingMachine";
 interface MapProps {
     position?: [number, number];
     routing?: [number, number];
+    direction?: string;
     allStations: ReducedBieHiringStation[];
     zoom: number;
 }
 
 export const MapComponent : React.FC<MapProps> = ({position, routing,
-                                                      allStations, zoom}: MapProps) => {
+                                                      direction, allStations,
+                                                      zoom}: MapProps) => {
     const [isMapInit, setIsMapInit] = useState<boolean>(false);
     const [map, setMap] = useState<any>();
     const saveMap = (map: any) => {
@@ -43,7 +45,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
 
     return (
       <>
-          <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={15} ref={saveMap}>
+          <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -71,7 +73,8 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                       </Popup>
                   </Marker>
               })}
-              {isMapInit && position && routing && <Routing map={map} fromCoordinates={position} toCoordinates={routing}/>}
+              {isMapInit && position && routing && direction && <Routing map={map} fromCoordinates={position} toCoordinates={routing}
+                direction={direction}/>}
           </Map>
       </>
   )
