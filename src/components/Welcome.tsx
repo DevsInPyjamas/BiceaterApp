@@ -18,7 +18,6 @@ export const Welcome : React.FC = () => {
         if(!route) {
             calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {direction: string, location: [number, number]}) => {
                 setRoute(res.location);
-                console.log(res.direction);
                 setDirection(res.direction);
             });
         }
@@ -26,19 +25,7 @@ export const Welcome : React.FC = () => {
 
     return (
         <div className="container">
-            <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
-                <div className="col" style={{justifyContent: "center"}}>
-                    {stations && <MapComponent
-                        position={[36.72116082659559, -4.464346934397554]}
-                        routing={route}
-                        allStations={stations}
-                        zoom={15}
-                        direction={direction}
-                        />
-                    }
-                </div>
-            </div>
-            <div className="row" style={{marginBottom: "20px"}}>
+            <div className="row d-flex justify-content-center align-items-center" style={{marginBottom: "20px"}}>
                 <div className="col-6">
                     <div className="card">
                         <div className="card-body">
@@ -51,6 +38,18 @@ export const Welcome : React.FC = () => {
                             <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary">Buscar Parada</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
+                <div className="col" style={{justifyContent: "center"}}>
+                    {stations && <MapComponent
+                        position={[36.72116082659559, -4.464346934397554]}
+                        routing={route}
+                        allStations={stations}
+                        zoom={15}
+                        direction={direction}
+                        />
+                    }
                 </div>
             </div>
         </div>
