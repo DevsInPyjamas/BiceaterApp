@@ -45,6 +45,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
 
     return (
       <>
+          {routing && <button>Go to station</button>}
           <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
               <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
