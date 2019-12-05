@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {} from 'react';
 import {WeatherComponent} from "./WeatherComponent";
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router";
+
+interface userProps {
+    text : string;
+}
+
+export const Navbar : React.FC<userProps> = (props) => {
 
 
-export const Navbar : React.FC<any> = (props) => {
+    let history = useHistory();
 
-    const {user,onChangeUser} = props;
+    function handleClick(event: any) {
+        history.push(`/user/${event.target.value}`);
+    }
 
-
-    const onSubmit = () => {
-        return ( <Link  to="/userSearch" />);
-    };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,8 +27,8 @@ export const Navbar : React.FC<any> = (props) => {
                     <WeatherComponent/>
                 </div>
                 <form className="form-inline">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Search" value={user}  onChange={onChangeUser}/>
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={onSubmit}>Buscar</button>
+                    <input className="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Search" value={props.text}/>
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit"  onClick={handleClick}>Buscar</button>
                 </form>
                 <div className="divider-vertical"/>
                 <Link to="#" className="btn btn-primary" role="button">Editar Perfil</Link>

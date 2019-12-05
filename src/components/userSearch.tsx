@@ -1,21 +1,25 @@
 import React, {useState, useEffect} from "react";
 import {Navbar} from "./Navbar";
+import {retrieveUsers} from "../utils/RequestMaker";
 
-export const UserSearch: React.FC = () => {
-    const [user, setUser] = useState("");
+
+
+export const UserSearch: React.FC = (props) => {
+
+
+    const [user] = useState("");
     const [allUsers, setAllUsers] = useState();
+
 
     useEffect(() => {
         if (!allUsers){
-            fetch('/views.all_users')
-                .then(response => {
-                    return response.json()
-                }).then(data => {
+            retrieveUsers(user)
+                .then(data => {
                 setAllUsers(data);
             })
         }
 
-    }, []);
+    }, [allUsers,user]);
 
     const allUsersFiltered= allUsers.filter((actualUser:any)=>{
         return actualUser.username.include(user);
@@ -30,11 +34,10 @@ export const UserSearch: React.FC = () => {
         );
     });
 
+
     return (
         <div className="container">
-            <Navbar user={user} onChangeUser={(e: any) => {
-                setUser(e)
-            }}/>
+            <Navbar  text={user}/>
             <h2>Usuarios</h2>
             <div>
                 {allUsersFiltered}

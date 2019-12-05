@@ -2,8 +2,9 @@ import React, {useState, useEffect, useCallback} from 'react';
 import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
-import {retrieveStation, sendComment} from "../utils/RequestMaker";
-import {BikeHireDockingStation, ReducedBieHiringStation} from "../@types/Biceater";
+import {retrieveStation, sendComment, retrieveAllCommentsFromStation} from "../utils/RequestMaker";
+import {BikeHireDockingStation, ReducedBieHiringStation, Comment as Comentario} from "../@types/Biceater";
+import {Comment} from  "./Comment";
 
 interface RouteParameters {
     stationId: string;
@@ -18,7 +19,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [station, setStation] = useState<BikeHireDockingStation>();
     const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
     const [comment, setComment] = useState<string>('');
-    const [allComments, setAllComments] = useState();
+    const [allComments, setAllComments] = useState<Comentario[]>();
 
     useEffect(() => {
         if(!station) {
@@ -39,14 +40,12 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             });
         }
         if(!allComments) {
-            fetch('/views.comment_by_stop')
-                            .then(response => {
-                                return response.json()
-                            }).then(data => {
-                                setAllComments(data);
-                            })
+            retrieveAllCommentsFromStation(stationId,10,0)
+            .then(data => {
+                setAllComments(data);
+           })
         }
-    }, [station, stationId]);
+    }, [station, stationId,allComments]);
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
@@ -122,8 +121,8 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     </div>
                 </div>
 
-                {allComments.map((comment) => {
-                    return <Comment author={commnet.author}/>
+                {allComments && allComments.map((comment) => {
+                    return <Comment authorId={comment.authorId} text={comment.text} date={comment.date}/>
                 })}
 
 

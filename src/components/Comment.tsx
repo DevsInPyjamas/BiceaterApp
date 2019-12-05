@@ -1,45 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {User} from "../@types/Biceater";
+import {Link, useParams} from "react-router-dom";
+import {RouteComponentProps, useHistory} from "react-router";
 
 interface CommentProps {
-    author: string;
-    content: string;
-    date:string;
+    authorId: User;
+    text: string;
+    date: Date;
 }
 
 
-export const Comments: React.FC<CommentProps> = (props) => {
+export const Comment: React.FC<CommentProps> = (props) => {
 
-    const {allComments} = props;
 
-    const allCommentsFiltered = allComments.filter((actualComment: any) => {
-        return actualComment;
-    }).map((actualComment: any) => {
+    let history = useHistory();
+
+    function handleClick(event: any) {
+
+    }
+
         return (
             <div className="row" style={{marginBottom: "20px"}}>
                 <div className="col-2">
 
                 </div>
-                <div className="col-8">
+                <div className="col-8 position-static">
                     <div className="card">
-                        <h5 className="card-header">{actualComment.author}</h5>
+                        <h5 className="card-header">{props.authorId}</h5>
                         <div className="card-body">
-                            <p className="card-text"> {actualComment.text}</p>
+                            <p className="card-text"> {props.text}</p>
                             <div className="row">
                                 <footer className="col">
-                                    {actualComment.date}
+                                    {props.date.getTime()}
                                 </footer>
 
                             </div>
 
                         </div>
                     </div>
+                    <Link to="/CommentAComment" className="stretched-link" onClick={handleClick}/>
                 </div>
                 <div className="col-2">
 
                 </div>
             </div>
         );
-    });
 
-    return (allCommentsFiltered);
 };

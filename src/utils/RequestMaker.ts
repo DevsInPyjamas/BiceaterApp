@@ -1,4 +1,4 @@
-import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/Biceater";
+import {BikeHireDockingStation, ReducedBieHiringStation, User, Comment} from "../@types/Biceater";
 
 const API = '/api';
 
@@ -89,4 +89,12 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
         body: JSON.stringify({ comment, bikeDockingStationId }),
         method: 'POST'
     });
+};
+
+export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
+    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=${taking}&page=${page}`);
+};
+
+export const retrieveUsers = async (user: string)=>{
+    return await baseRequest<User[]>(`/users/${user}`);
 };
