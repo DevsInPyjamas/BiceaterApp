@@ -1,15 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {Navbar} from "./Navbar";
 import {retrieveUsers} from "../utils/RequestMaker";
+import {User} from "../@types/Biceater";
 
-
-
-export const UserSearch: React.FC = (props) => {
-
+export const UserSearch: React.FC = () => {
 
     const [user] = useState("");
     const [allUsers, setAllUsers] = useState();
-
 
     useEffect(() => {
         if (!allUsers){
@@ -18,11 +15,10 @@ export const UserSearch: React.FC = (props) => {
                 setAllUsers(data);
             })
         }
+    }, [allUsers, user]);
 
-    }, [allUsers,user]);
-
-    const allUsersFiltered= allUsers.filter((actualUser:any)=>{
-        return actualUser.username.include(user);
+    const allUsersFiltered= allUsers.filter((actualUser: User)=>{
+        return actualUser.username.includes(user);
     }).map((actualUser:any)=>{
         return(
             <div className="card">
@@ -34,10 +30,9 @@ export const UserSearch: React.FC = (props) => {
         );
     });
 
-
     return (
         <div className="container">
-            <Navbar  text={user}/>
+            <Navbar text={user}/>
             <h2>Usuarios</h2>
             <div>
                 {allUsersFiltered}

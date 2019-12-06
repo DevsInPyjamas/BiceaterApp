@@ -9,13 +9,11 @@ interface userProps {
 
 export const Navbar : React.FC<userProps> = (props) => {
 
-
-    let history = useHistory();
+    const history = useHistory();
 
     function handleClick(event: any) {
-        history.push(`/user/${event.target.value}`);
+        history.push(`/search/${event.target.value}`);
     }
-
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
