@@ -11,7 +11,6 @@ interface RoutingProps extends MapLayerProps{
     toCoordinates: [number, number]
 }
 
-
 export class Routing extends MapLayer<RoutingProps> {
     createLeafletElement() {
         const { map, fromCoordinates, toCoordinates, direction } = this.props;
@@ -53,8 +52,8 @@ export class Routing extends MapLayer<RoutingProps> {
                 },
             }),
             router: new L.Routing.OSRMv1({
-                serviceUrl: 'http://10.10.5.156:5000/route/v1',
-                profile: 'foot'
+                serviceUrl: process.env.REACT_APP_OSRM_SERVER_HOST,
+                profile: 'walking'
             })
         }).addTo(map.leafletElement);
         return leafletElement.getPlan();
