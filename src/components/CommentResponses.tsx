@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {retrieveComment, retrieveResponsesToComment, sendComment} from "../utils/RequestMaker";
-import { Comment, User } from '../@types/Biceater';
+import { Comment } from '../@types/Biceater';
 import { RouteComponentProps } from "react-router";
 import { Comment as CommentComponent } from './Comment';
 
@@ -26,7 +26,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
             retrieveResponsesToComment(commentId)
                 .then((result: Comment[]) => setResponses(result));
         }
-    }, []);
+    }, [commentId, originalComment, responses]);
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
