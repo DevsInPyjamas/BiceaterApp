@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {User} from "../@types/Biceater";
-import {Link, useParams} from "react-router-dom";
-import {RouteComponentProps, useHistory} from "react-router";
+import { useHistory } from "react-router";
 
 interface CommentProps {
     authorId: User;
     text: string;
     date: Date;
+    commentId?: number;
 }
 
 
 export const Comment: React.FC<CommentProps> = (props) => {
 
 
-    let history = useHistory();
+    const history = useHistory();
 
     function handleClick(event: any) {
-
+        history.push(event.target.value);
     }
 
         return (
@@ -38,7 +38,7 @@ export const Comment: React.FC<CommentProps> = (props) => {
 
                         </div>
                     </div>
-                    <Link to="/CommentAComment" className="stretched-link" onClick={handleClick}/>
+                    {props.commentId && <button onClick={handleClick} value={props.commentId}>Respuestas</button>}
                 </div>
                 <div className="col-2">
 

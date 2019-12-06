@@ -122,7 +122,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                 </div>
 
                 {allComments && allComments.map((comment) => {
-                    return <Comment authorId={comment.authorId} text={comment.text} date={comment.date}/>
+                    return <Comment authorId={comment.authorId} text={comment.text} date={comment.date} commentId={comment.commentId}/>
                 })}
 
 

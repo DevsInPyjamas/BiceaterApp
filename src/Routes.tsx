@@ -8,6 +8,7 @@ import { MapComponent } from "./components/MapComponent";
 import { Parada } from './components/Parada';
 import {Welcome} from "./components/Welcome";
 import {UserSearch} from "./components/userSearch";
+import {CommentResponses} from "./components/CommentResponses";
 
 export const Routes : React.FC = () => {
     return (
@@ -15,7 +16,8 @@ export const Routes : React.FC = () => {
             <Route path='/login' component={LoginForm}/>
             <Route path='/parada' component={Parada}/>
             <Route path='/welcome' component={Welcome} />
-            <Route path='/user/:textoInput' component={UserSearch} />
+            <Route path='/user/:textInput' component={UserSearch} />
+            <Route path='/comments/:idComment' component={CommentResponses}/>
             <Route exact path='/' component={MapComponent}/>
         </Switch>
     );

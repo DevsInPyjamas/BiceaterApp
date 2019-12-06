@@ -95,6 +95,14 @@ export const retrieveAllCommentsFromStation = async (stationId: number, taking: 
     return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=${taking}&page=${page}`);
 };
 
+export const retrieveResponsesToComment = async (commentId: number) => {
+    return await baseRequest<Comment[]>(`/comments/${commentId}/responses`);
+};
+
+export const retrieveComment = async (commentId: number) => {
+    return await baseRequest<Comment>(`/comments/${commentId}`);
+};
+
 export const retrieveUsers = async (user: string)=>{
     return await baseRequest<User[]>(`/users/${user}`);
 };
