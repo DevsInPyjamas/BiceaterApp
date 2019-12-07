@@ -1,24 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Switch,
     Route,
 } from "react-router-dom";
 import { LoginForm } from './components/LoginForm';
-import { MapComponent } from "./components/MapComponent";
 import { Parada } from './components/Parada';
-import {Welcome} from "./components/Welcome";
+import { Welcome } from "./components/Welcome";
+import { Navbar } from "./components/Navbar";
 import {UserSearch} from "./components/UserSearch";
 import {CommentResponses} from "./components/CommentResponses";
 
 export const Routes : React.FC = () => {
+    const [user] = useState("");
     return (
         <Switch>
-            <Route path='/login' component={LoginForm}/>
-            <Route path='/parada' component={Parada}/>
-            <Route path='/welcome' component={Welcome} />
-            <Route path='/search/:textInput' component={UserSearch} />
-            <Route path='/comments/:idComment' component={CommentResponses}/>
-            <Route exact path='/' component={MapComponent}/>
+            <>
+                <Navbar text={user}/>
+                <Switch>
+                    <Route path='/login' component={LoginForm}/>
+                    <Route path='/station/:stationId' component={Parada}/>
+                    <Route exact path='/' component={Welcome} />
+                    <Route path='/search/:textInput' component={UserSearch} />
+                    <Route path='/comments/:idComment' component={CommentResponses}/>
+                </Switch>
+            </>
         </Switch>
     );
 };
