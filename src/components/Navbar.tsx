@@ -1,6 +1,7 @@
-import React, {} from 'react';
+import React from 'react';
 import {WeatherComponent} from "./WeatherComponent";
 import {Link} from "react-router-dom";
+import {logout} from "../utils/RequestMaker";
 import {useHistory} from "react-router";
 
 interface userProps {
@@ -10,6 +11,12 @@ interface userProps {
 export const Navbar : React.FC<userProps> = (props) => {
 
     const history = useHistory();
+
+    const doLogout = () => {
+        logout().then(() => {
+            window.location.assign('/login');
+        });
+    };
 
     function handleClick(event: any) {
         history.push(`/search/${event.target.value}`);
@@ -31,7 +38,7 @@ export const Navbar : React.FC<userProps> = (props) => {
                 <div className="divider-vertical"/>
                 <Link to="#" className="btn btn-primary" role="button">Editar Perfil</Link>
                 <div className="divider-vertical"/>
-                <Link to="#" className="btn btn-primary" role="button">Cerrar Sesion</Link>
+                <button onClick={doLogout} className='btn btn-primary'>Cerrar Sesion</button>
             </div>
         </nav>
     );
