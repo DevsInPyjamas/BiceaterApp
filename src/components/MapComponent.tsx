@@ -50,47 +50,51 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
 
     return (
       <>
-          <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
-              <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-              />
-              <GeoSearch />
-              {position && <Marker position={position} icon={L.icon({
-                  iconUrl: require('../assets/location-icon.png'),
-                  iconRetinaUrl: require('../assets/location-icon.png'),
-                  shadowUrl: iconShadow,
-                  iconAnchor: [20, 40],
-                  popupAnchor: [0, -35],
-                  iconSize: [40, 40],
-                  shadowSize: [29, 40],
-                  shadowAnchor: [7, 40],
-              })}>
-                  <Popup>Tu posici&oacute;n</Popup>
-              </Marker>}
-              {allStations.map((station) => {
-                  const key = Object.keys(station)[0];
-                  return <Marker key={key} position={station[key][0].coordinates}>
-                      <Popup>
-                          <button value={key} onClick={handleClick} className="btn btn-outline-dark">
-                                Estaci&oacute;n de {station[key][1].streetAddress}
-                          </button>
-                      </Popup>
-                  </Marker>
-              })}
-              {isMapInit && position && routing && direction &&
-                    <Routing map={map} fromCoordinates={position} toCoordinates={routing} direction={direction}/>
-              }
-          </Map>
+          <div className="row">
+              <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
+                  <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                  />
+                  <GeoSearch />
+                  {position && <Marker position={position} icon={L.icon({
+                      iconUrl: require('../assets/location-icon.png'),
+                      iconRetinaUrl: require('../assets/location-icon.png'),
+                      shadowUrl: iconShadow,
+                      iconAnchor: [20, 40],
+                      popupAnchor: [0, -35],
+                      iconSize: [40, 40],
+                      shadowSize: [29, 40],
+                      shadowAnchor: [7, 40],
+                  })}>
+                      <Popup>Tu posici&oacute;n</Popup>
+                  </Marker>}
+                  {allStations.map((station) => {
+                      const key = Object.keys(station)[0];
+                      return <Marker key={key} position={station[key][0].coordinates}>
+                          <Popup>
+                              <button value={key} onClick={handleClick} className="btn btn-outline-dark">
+                                    Estaci&oacute;n de {station[key][1].streetAddress}
+                              </button>
+                          </Popup>
+                      </Marker>
+                  })}
+                  {isMapInit && position && routing && direction &&
+                        <Routing map={map} fromCoordinates={position} toCoordinates={routing} direction={direction}/>
+                  }
+              </Map>
+          </div>
           {routing &&
-          <div className="row d-flex justify-content-center align-items-center" style={{marginTop: "20px"}}>
-              <div className="col-6 d-flex justify-content-center align-items-center">
+          <div className="row" style={{marginTop: "20px"}}>
+              <div className="col-6" style={{paddingLeft: "20px"}}>
                   <div className="card">
                       <div className="card-body">
-                          <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary"
-                                  onClick={handleClick} value={idStation}>
+                          <h4>
                               Informaci&oacute;n de la parada
-                          </button>
+                          </h4>
+                          <div style={{marginTop: "10px"}}>
+                              Direcci&oacute;n: {direction}
+                          </div>
                           <div style={{marginTop: "10px"}}>
                               N&uacute;mero total de espacios: {totalSlotNumber}
                           </div>
@@ -100,6 +104,10 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                           <div style={{marginTop: "10px"}}>
                               N&uacute;mero de espacios libres: {freeSlotNumber}
                           </div>
+                          <button type="button" style= {{justifyContent: "center", marginTop: "10px"}} className="btn btn-primary"
+                                  onClick={handleClick} value={idStation}>
+                              Visitar parada
+                          </button>
                       </div>
                   </div>
               </div>
