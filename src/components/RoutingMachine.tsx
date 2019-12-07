@@ -1,4 +1,4 @@
-import {MapLayer, MapLayerProps} from "react-leaflet";
+import { MapLayer, MapLayerProps } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import { withLeaflet } from "react-leaflet";
@@ -32,7 +32,6 @@ export class Routing extends MapLayer<RoutingProps> {
             show: false,
             routeWhileDragging: false,
             showAlternatives: false,
-            autoRoute: false,
             collapsible: true,
             plan: L.Routing.plan(waypoints, {
                 createMarker: function(waypointIndex, waypoint) {
@@ -53,7 +52,9 @@ export class Routing extends MapLayer<RoutingProps> {
             }),
             router: new L.Routing.OSRMv1({
                 serviceUrl: process.env.REACT_APP_OSRM_SERVER_HOST,
-                profile: 'walking'
+                routingOptions:{
+
+                }
             })
         }).addTo(map.leafletElement);
         return leafletElement.getPlan();
