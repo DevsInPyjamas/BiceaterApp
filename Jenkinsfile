@@ -7,6 +7,7 @@ pipeline {
 
   environment {
     CI = 'true'
+    REACT_APP_OSRM_SERVER_HOST = 'http://osrm:5000/api/osrm/route/v1'
   }
 
   stages {

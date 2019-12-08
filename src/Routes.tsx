@@ -19,9 +19,9 @@ export const Routes : React.FC = () => {
                 <Switch>
                     <Route path='/login' component={LoginForm}/>
                     <Route path='/station/:stationId' component={Parada}/>
-                    <Route exact path='/' component={Welcome} />
                     <Route path='/search/:textInput' component={UserSearch} />
                     <Route path='/comments/:idComment' component={CommentResponses}/>
+                    <Route exact path='/' component={Welcome} />
                 </Switch>
             </>
         </Switch>
