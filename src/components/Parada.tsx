@@ -41,7 +41,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
         }
         if(!allComments) {
             retrieveAllCommentsFromStation(stationId,10,0)
-            .then(data => {
+            .then((data: any)=> {
                 setAllComments(data);
            })
         }

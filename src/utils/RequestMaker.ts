@@ -1,4 +1,4 @@
-import {BikeHireDockingStation, ReducedBieHiringStation, User, Comment} from "../@types/Biceater";
+import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/Biceater";
 
 const API = '/api';
 
@@ -7,7 +7,7 @@ const calculateUrl = () => {
     if(process.env.NODE_ENV === 'production') {
         url = '/api/login/google-oauth2';
     } else {
-        url = `http://localhost:4000/api/login/google-oauth2`;
+        url = `http://localhost:3000/api/login/google-oauth2`;
     }
     return url;
 };
@@ -94,7 +94,6 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
 export const logout = async () => {
     return await fetch(`${API}/logout`);
 };
-
 export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
     return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=${taking}&page=${page}`);
 };

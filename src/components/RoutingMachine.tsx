@@ -1,4 +1,4 @@
-import {MapLayer, MapLayerProps} from "react-leaflet";
+import { MapLayer, MapLayerProps } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import { withLeaflet } from "react-leaflet";
@@ -11,13 +11,12 @@ interface RoutingProps extends MapLayerProps{
     toCoordinates: [number, number]
 }
 
-
 export class Routing extends MapLayer<RoutingProps> {
     createLeafletElement() {
         const { map, fromCoordinates, toCoordinates, direction } = this.props;
         const waypoints = [
-                L.latLng(fromCoordinates[0], fromCoordinates[1]),
-                L.latLng(toCoordinates[0], toCoordinates[1]),
+            L.latLng(fromCoordinates[0], fromCoordinates[1]),
+            L.latLng(toCoordinates[0], toCoordinates[1]),
         ];
         let leafletElement = L.Routing.control({
             waypoints: waypoints,
@@ -33,7 +32,6 @@ export class Routing extends MapLayer<RoutingProps> {
             show: false,
             routeWhileDragging: false,
             showAlternatives: false,
-            autoRoute: false,
             collapsible: true,
             plan: L.Routing.plan(waypoints, {
                 createMarker: function(waypointIndex, waypoint) {
@@ -53,8 +51,10 @@ export class Routing extends MapLayer<RoutingProps> {
                 },
             }),
             router: new L.Routing.OSRMv1({
-                serviceUrl: 'http://10.10.5.156:5000/route/v1',
-                profile: 'foot'
+                serviceUrl: process.env.REACT_APP_OSRM_SERVER_HOST,
+                routingOptions:{
+
+                }
             })
         }).addTo(map.leafletElement);
         return leafletElement.getPlan();

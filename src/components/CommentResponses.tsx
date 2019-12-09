@@ -20,11 +20,11 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
     useEffect(() => {
         if(!originalComment) {
             retrieveComment(commentId)
-                .then((result: Comment) => setOriginalComment(result));
+                .then((result:any) => setOriginalComment(result))
         }
         if(!responses) {
             retrieveResponsesToComment(commentId)
-                .then((result: Comment[]) => setResponses(result));
+                .then((result: any[]) => setResponses(result));
         }
     }, [commentId, originalComment, responses]);
 
