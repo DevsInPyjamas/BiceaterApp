@@ -32,9 +32,9 @@ export const baseRequest = async<T> (route: string, config?: RequestInit): Promi
     if(requestResult.status === 401) {
         window.location.assign(calculateUrl());
     }
-    if(!requestResult.ok) {
+    /*if(!requestResult.ok) {
         throw new Error('ERROR:\n' + requestResult.statusText);
-    }
+    }*/
     return requestResult.json();
 };
 
