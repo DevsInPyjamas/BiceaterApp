@@ -76,20 +76,20 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
                         Nombre: <input className='ml-2' onChange={nameChangeHandler} readOnly={!editing} value={name} />
                     </div>
                     <div className='row justify-content-center p-2'>
-                        Apellidos: <input className='ml-2' onChange={usernameChangeHandler} readOnly={!editing} value={user.surname} />
+                        Apellidos: <input className='ml-2' onChange={usernameChangeHandler} readOnly={!editing} value={surname} />
                     </div>
                     <div className='row justify-content-center p-2'>
-                        Username: <input className='ml-2' onChange={usernameChangeHandler} readOnly={!editing} value={user.username} />
+                        Username: <input className='ml-2' onChange={usernameChangeHandler} readOnly={!editing} value={username} />
                     </div>
                     <div className='row justify-content-center p-2'>
                         Fecha Nacimiento:
                         <input readOnly={!editing} onChange={dateOfBirthChangeHandler} type='date' className='ml-2' value={(birthDate) ? birthDate.getDate() : ''} />
                     </div>
                     <div className='row justify-content-center p-2'>
-                        Genero: <input className='ml-2' onChange={genderChangeHandler} readOnly={!editing} value={user.genre} />
+                        Genero: <input className='ml-2' onChange={genderChangeHandler} readOnly={!editing} value={gender} />
                     </div>
                     <div className='row justify-content-center p-2'>
-                        Biografia: <textarea className='ml-2' readOnly={!editing} onChange={bioChangeHandler} value={user.bio} />
+                        Biografia: <textarea className='ml-2' readOnly={!editing} onChange={bioChangeHandler} value={bio} />
                     </div>
                     {editing &&
                     <button className='btn btn-outline-primary fixed-right' onClick={updateProfileCallback}>Enviar</button>}
