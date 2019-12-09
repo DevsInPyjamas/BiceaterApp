@@ -21,8 +21,8 @@ export const Welcome : React.FC = () => {
     function searchStation(event: any){
         if(!route) {
             calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {direction: string,
-                        location: [number, number], availableBikeNumber: number, freeSlotNumber: number, id: number,
-                        totalSlotNumber: number}) => {
+                location: [number, number], availableBikeNumber: number, freeSlotNumber: number, id: number,
+                totalSlotNumber: number}) => {
                 setRoute(res.location);
                 setDirection(res.direction);
                 setId(res.id);
@@ -58,17 +58,17 @@ export const Welcome : React.FC = () => {
             <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations &&
-                        <MapComponent
-                            position={[36.72116082659559, -4.464346934397554]}
-                            routing={route}
-                            allStations={stations}
-                            zoom={15}
-                            direction={direction}
-                            idStation={id}
-                            availableBikeNumber={availableBikeNumber}
-                            freeSlotNumber={freeSlotNumber}
-                            totalSlotNumber={totalSlotNumber}
-                        />
+                    <MapComponent
+                        position={[36.72116082659559, -4.464346934397554]}
+                        routing={route}
+                        allStations={stations}
+                        zoom={15}
+                        direction={direction}
+                        idStation={id}
+                        availableBikeNumber={availableBikeNumber}
+                        freeSlotNumber={freeSlotNumber}
+                        totalSlotNumber={totalSlotNumber}
+                    />
                     }
                 </div>
             </div>

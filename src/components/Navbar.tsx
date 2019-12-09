@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {WeatherComponent} from "./WeatherComponent";
 import {Link} from "react-router-dom";
 import {logout} from "../utils/RequestMaker";
 import {useHistory} from "react-router";
 
 interface userProps {
-    text : string;
+
 }
 
 export const Navbar : React.FC<userProps> = (props) => {
 
     const history = useHistory();
+    const [user,setUser] = useState<string>("");
 
     const doLogout = () => {
         logout().then(() => {
@@ -18,8 +19,12 @@ export const Navbar : React.FC<userProps> = (props) => {
         });
     };
 
+    function updateUserInput(event:any) {
+        setUser(event.target.value);
+    }
+
     function handleClick(event: any) {
-        history.push(`/search/${event.target.value}`);
+        history.push(`/search/${user}`);
     }
 
     return (
@@ -32,7 +37,7 @@ export const Navbar : React.FC<userProps> = (props) => {
                     <WeatherComponent/>
                 </div>
                 <form className="form-inline">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Search" value={props.text}/>
+                    <input className="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Search" value={user} onChange={updateUserInput}/>
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit"  onClick={handleClick}>Buscar</button>
                 </form>
                 <div className="divider-vertical"/>

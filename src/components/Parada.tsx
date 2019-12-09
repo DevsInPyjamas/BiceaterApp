@@ -19,7 +19,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [station, setStation] = useState<BikeHireDockingStation>();
     const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
     const [comment, setComment] = useState<string>('');
-    const [allComments, setAllComments] = useState<Comentario[]>();
+    const [allComments, setAllComments] = useState<Comentario[]>([]);
 
     useEffect(() => {
         if(!station) {
@@ -35,16 +35,17 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                         result.address.value
                     ]
                 }]);
+            retrieveAllCommentsFromStation(stationId,10,0)
+                            .then((data: any)=> {
+                                if(data.comments){
+                                setAllComments(data.comments);
+                                }
+                           })
             }).catch((err: unknown) => {
                 console.log('Fuck');
             });
         }
-        if(!allComments) {
-            retrieveAllCommentsFromStation(stationId,10,0)
-            .then(data => {
-                setAllComments(data);
-           })
-        }
+
     }, [station, stationId,allComments]);
 
     const commentHandler = useCallback((event: any) => {
