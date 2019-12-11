@@ -22,25 +22,24 @@ export const UserSearch: React.FC = () => {
         }
     }, [allUsers, user]);
 
-    const allUsersFiltered= allUsers.map((users)=>{
-        return(
-            <div className="card">
-            <h5 className="card-header">{users.username}</h5>
-        <div className="card-body">
-            <button className="btn btn-light" type="submit"> Acceder Perfil</button>
-        </div>
-        </div>
-        );
-    });
-
     return (
         <div className="container">
             <h2>Usuarios</h2>
             <div>
-                {allUsersFiltered}
+                {allUsers && allUsers.map((users) =>{
+                    return(
+                        <div className="card">
+                            <h5 className="card-header">{users.username}</h5>
+                            <div className="card-body">
+                                <button className="btn btn-light" type="submit"> Acceder Perfil</button>
+                            </div>
+                        </div>
+                    );
+                }) }
             </div>
 
         </div>
 
     );
 };
+
