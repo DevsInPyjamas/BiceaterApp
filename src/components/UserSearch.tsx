@@ -11,7 +11,7 @@ export const UserSearch: React.FC = () => {
 
     const {user} = useParams<UserSearchParams>();
 
-    const [allUsers, setAllUsers] = useState([]);
+    const [allUsers, setAllUsers] = useState<User[]>([]);
 
     useEffect(() => {
         if (!allUsers){
@@ -22,12 +22,10 @@ export const UserSearch: React.FC = () => {
         }
     }, [allUsers, user]);
 
-    const allUsersFiltered= allUsers.filter((actualUser: User)=>{
-        return actualUser.username.includes(user);
-    }).map((actualUser:any)=>{
+    const allUsersFiltered= allUsers.map((users)=>{
         return(
             <div className="card">
-            <h5 className="card-header">{actualUser.username}</h5>
+            <h5 className="card-header">{users.username}</h5>
         <div className="card-body">
             <button className="btn btn-light" type="submit"> Acceder Perfil</button>
         </div>
