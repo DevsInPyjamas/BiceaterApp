@@ -59,7 +59,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             .then((data: any)=> {
                 if(data.comments){
                     setAllComments(data.comments);
-                    console.log(data);
+                    console.log(data); 
                 }
             });
     }, [stationId, comment]);

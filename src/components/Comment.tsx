@@ -17,7 +17,7 @@ export const Comment: React.FC<CommentProps> = (props) => {
     const history = useHistory();
 
     function handleClick(event: any) {
-        history.replace(`/comments/${event.target.value}`);
+        history.replace(`/comments/${props.comment_id}`);
     }
 
     const borrar = (event: any) => {
