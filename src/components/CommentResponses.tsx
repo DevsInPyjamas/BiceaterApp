@@ -20,7 +20,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
     useEffect(() => {
         if(!originalComment) {
             retrieveComment(commentId)
-                .then((result:any) => setOriginalComment(result))
+                .then((result:any) => setOriginalComment(result.comments))
         }
         if(!responses) {
             retrieveResponsesToComment(commentId)
