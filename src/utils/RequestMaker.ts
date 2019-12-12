@@ -99,7 +99,7 @@ export const logout = async () => {
     return await fetch(`${API}/logout`);
 };
 export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
-    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=${taking}&page=${page}`);
+    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
 };
 
 export const retrieveResponsesToComment = async (commentId: number) => {
@@ -116,4 +116,8 @@ export const retrieveUsers = async (user: string)=>{
 
 export const me = async () => {
     return await baseRequest<{id: number}>(`/users/me`);
+};
+
+export const deleteComment = async (commentId: number) => {
+    return await baseRequest<void>(`/comments/${commentId}/delete`);
 };

@@ -30,7 +30,7 @@ export interface BikeHireDockingStation {
 }
 
 export interface Comment {
-    commentId: number;
+    comment_id: number;
     text: string;
     date: Date;
     author: User;

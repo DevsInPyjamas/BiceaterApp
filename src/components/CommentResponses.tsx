@@ -70,7 +70,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                     </div>
 
                     {responses && responses.map((comment) => {
-                        return <CommentComponent key={comment.commentId} author={comment.author} text={comment.text}
+                        return <CommentComponent key={comment.comment_id} author={comment.author} text={comment.text}
                         date={comment.date as any as string}/>
                     })}
 
