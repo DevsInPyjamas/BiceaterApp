@@ -39,7 +39,7 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary" onClick={searchStation}>
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info" onClick={searchStation}>
                                 Parada mas cercana
                             </button>
                         </div>
@@ -48,14 +48,14 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary">
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info">
                                 Buscar Parada
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
+            <div className="row container d-flex justify-content-center" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations &&
                     <MapComponent

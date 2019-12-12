@@ -8,7 +8,7 @@ export interface JSONResult<T> {
 export type Genre = 'Male' | 'Female';
 
 export interface User {
-    userId: number;
+    id: number;
     username: string;
     name: string;
     surname: string;

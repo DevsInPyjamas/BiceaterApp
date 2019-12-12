@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import {WeatherComponent} from "./WeatherComponent";
 import {Link} from "react-router-dom";
-import {logout} from "../utils/RequestMaker";
+import {logout, me} from "../utils/RequestMaker";
 import {useHistory} from "react-router";
 
-interface userProps {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 
-}
-
-export const Navbar : React.FC<userProps> = (props) => {
+export const Navbar : React.FC = () => {
 
     const history = useHistory();
     const [user,setUser] = useState<string>("");
@@ -27,8 +26,14 @@ export const Navbar : React.FC<userProps> = (props) => {
         history.push(`/search/${user}`);
     }
 
+    const redirectMe = () => {
+        me().then((res) => {
+            history.push(`/users/${res.id}`);
+        })
+    };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand navbar-light navbar-back mb-5">
             <Link to="/"><span className="navbar-brand mb-0 h1">Biceater</span></Link>
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -37,13 +42,20 @@ export const Navbar : React.FC<userProps> = (props) => {
                     <WeatherComponent/>
                 </div>
                 <form className="form-inline" onSubmit={(event: any) => event.preventDefault()}>
-                    <input className="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Search" value={user} onChange={updateUserInput}/>
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit"  onClick={handleClick}>Buscar</button>
+                    <input className="form-control mr-sm-2" type="search" placeholder="Usuario"
+                           aria-label="Search" value={user} onChange={updateUserInput}/>
+                    <button className="btn btn-info my-2 my-sm-0" type="submit"  onClick={handleClick}><
+                        FontAwesomeIcon icon={faSearch}/>
+                    </button>
                 </form>
                 <div className="divider-vertical"/>
-                <Link to="#" className="btn btn-primary" role="button">Editar Perfil</Link>
+                <button onClick={redirectMe} className="btn btn-info my-2 my-sm-0">
+                    <FontAwesomeIcon icon={faUser}/>
+                </button>
                 <div className="divider-vertical"/>
-                <button onClick={doLogout} className='btn btn-primary'>Cerrar Sesion</button>
+                <button onClick={doLogout} className='btn btn-info my-2 my-sm-0'>
+                    <FontAwesomeIcon icon={faSignOutAlt}/>
+                </button>
             </div>
         </nav>
     );

@@ -16,7 +16,7 @@ export const WeatherComponent : React.FC = () => {
 
     return (
         <div>
-            { weather && <p>{weather.name}: {weather.weather[0].description} ({weather.main.temp}ºC)</p>}
+            { weather && <>{weather.name}: {weather.weather[0].description} ({weather.main.temp}ºC)</>}
         </div>
     );
 };
