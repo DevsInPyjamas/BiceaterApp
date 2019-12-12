@@ -1,37 +1,47 @@
 import React, {useState, useEffect} from "react";
-import {useParams} from "react-router";
+import {RouteComponentProps, useHistory} from "react-router";
 import {retrieveUsers} from "../utils/RequestMaker";
 import {User} from "../@types/Biceater";
 
-interface UserSearchParams{
-    user:string;
+interface UserSearchParams {
+    user: string;
 }
 
-export const UserSearch: React.FC = () => {
+type UserSearchProps = RouteComponentProps<UserSearchParams>
 
-    const {user} = useParams<UserSearchParams>();
+export const UserSearch: React.FC<UserSearchProps> = (props: UserSearchProps) => {
+
+    const user = props.match.params.user;
+    const history = useHistory();
 
     const [allUsers, setAllUsers] = useState<User[]>([]);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!allUsers){
+        if(!isLoaded) {
             retrieveUsers(user)
-                .then((data:any) => {
+            .then((data:any) => {
                 setAllUsers(data);
-            })
+            });
+            setIsLoaded(true);
         }
-    }, [allUsers, user]);
+    }, [allUsers, user, isLoaded]);
+
+    const accesProfile = (event: any) => {
+        history.replace(`/users/${event.target.value}` );
+    };
 
     return (
         <div className="container">
             <h2>Usuarios</h2>
             <div>
                 {allUsers && allUsers.map((users) =>{
+                    console.log(allUsers);
                     return(
                         <div className="card">
                             <h5 className="card-header">{users.username}</h5>
                             <div className="card-body">
-                                <button className="btn btn-light" type="submit"> Acceder Perfil</button>
+                                <button className="btn btn-light" value={users.id} type="submit" onClick={accesProfile}> Acceder Perfil</button>
                             </div>
                         </div>
                     );
