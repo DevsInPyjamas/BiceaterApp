@@ -5,13 +5,13 @@ import { RouteComponentProps } from "react-router";
 import { Comment as CommentComponent } from './Comment';
 
 interface RouteParameters {
-    commentId: string;
+    idComment: string;
 }
 
 type CommentResponsesProps = RouteComponentProps<RouteParameters>
 
 export const CommentResponses: React.FC<CommentResponsesProps> = (props: CommentResponsesProps) => {
-    const commentId = parseInt(props.match.params.commentId);
+    const commentId = parseInt(props.match.params.idComment);
 
     const [comment, setComment] = useState<string>('');
     const [originalComment, setOriginalComment] = useState<Comment>();
