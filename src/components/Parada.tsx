@@ -2,8 +2,9 @@ import React, {useState, useEffect, useCallback} from 'react';
 import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
-import {retrieveStation, sendComment} from "../utils/RequestMaker";
-import {BikeHireDockingStation, ReducedBieHiringStation} from "../@types/Biceater";
+import {retrieveStation, sendComment, retrieveAllCommentsFromStation} from "../utils/RequestMaker";
+import {BikeHireDockingStation, ReducedBieHiringStation, Comment as Comentario} from "../@types/Biceater";
+import {Comment} from  "./Comment";
 
 interface RouteParameters {
     stationId: string;
@@ -18,6 +19,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [station, setStation] = useState<BikeHireDockingStation>();
     const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
     const [comment, setComment] = useState<string>('');
+    const [allComments, setAllComments] = useState<Comentario[]>([]);
 
     useEffect(() => {
         if(!station) {
@@ -36,8 +38,16 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             }).catch((err: unknown) => {
                 console.log('Fuck');
             });
+            retrieveAllCommentsFromStation(stationId,10,0)
+                .then((data: any)=> {
+                    if(data.comments){
+                        setAllComments(data.comments);
+                        console.log(data);
+                    }
+            });
         }
-    }, [station, stationId]);
+
+    }, [station, stationId, allComments]);
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
@@ -45,6 +55,13 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     const sendCommentHandler = useCallback((event: unknown)=>{
         sendComment(comment, stationId).then();
+        retrieveAllCommentsFromStation(stationId,10,0)
+            .then((data: any)=> {
+                if(data.comments){
+                    setAllComments(data.comments);
+                    console.log(data);
+                }
+            });
     }, [stationId, comment]);
 
     return (
@@ -73,7 +90,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     <div className="col-3">
                         <div className="card">
                             <div className="card-body">
-                                <button type="button" className="btn btn-primary" style={{float: "left"}}>Valora !
+                                <button type="button" className="btn btn-info" style={{float: "left"}}>Valora !
                                 </button>
 
                             </div>
@@ -100,14 +117,10 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                                     event.preventDefault()
                                 }}>
                                     <div>
-                                            <textarea name="comments" id="comments" style={{
-                                                width: "686px",
-                                                resize: "both",
-                                                height: "136px",
-                                                marginBottom: "10px"
-                                            }} onChange={commentHandler} value={comment} placeholder='Comenta lo que quieras.'/>
+                                            <textarea name="comments" id="comments"
+                                            onChange={commentHandler} value={comment} placeholder='Comenta lo que quieras.'/>
                                     </div>
-                                    <button type="button" className="btn btn-primary" onClick={sendCommentHandler}>Comenta!</button>
+                                    <button type="button" className="btn btn-info" onClick={sendCommentHandler}>Comenta!</button>
                                 </form>
                             </div>
                         </div>
@@ -116,6 +129,13 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
                     </div>
                 </div>
+
+                {allComments && allComments.map((comment) => {
+                    return <Comment author={comment.author} text={comment.text} date={comment.date as any as string}
+                                    comment_id={comment.comment_id}/>
+                })}
+
+
             </div>
             }
         </div>

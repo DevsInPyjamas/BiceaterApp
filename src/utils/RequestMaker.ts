@@ -32,9 +32,9 @@ export const baseRequest = async<T> (route: string, config?: RequestInit): Promi
     if(requestResult.status === 401) {
         window.location.assign(calculateUrl());
     }
-    if(!requestResult.ok) {
+    /*if(!requestResult.ok) {
         throw new Error('ERROR:\n' + requestResult.statusText);
-    }
+    }*/
     return requestResult.json();
 };
 
@@ -107,4 +107,27 @@ export const sendUpdateUser = async(userId: number, name: string, surname: strin
 
 export const logout = async () => {
     return await fetch(`${API}/logout`);
+};
+export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
+    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
+};
+
+export const retrieveResponsesToComment = async (commentId: number) => {
+    return await baseRequest<Comment[]>(`/comments/${commentId}/responses`);
+};
+
+export const retrieveComment = async (commentId: number) => {
+    return await baseRequest<Comment>(`/comments/${commentId}`);
+};
+
+export const retrieveUsers = async (user: string)=>{
+    return await baseRequest<User[]>(`/users?user_input=${user}`);
+};
+
+export const me = async () => {
+    return await baseRequest<{id: number}>(`/users/me`);
+};
+
+export const deleteComment = async (commentId: number) => {
+    return await baseRequest<void>(`/comments/${commentId}/delete`);
 };
