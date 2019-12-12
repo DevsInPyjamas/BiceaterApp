@@ -50,7 +50,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
 
     return (
       <>
-          <div className="row">
+          <div className="container d-flex justify-content-center">
               <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
                   <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

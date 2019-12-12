@@ -55,7 +55,7 @@ export const Welcome : React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
+            <div className="row container d-flex justify-content-center" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations &&
                     <MapComponent
