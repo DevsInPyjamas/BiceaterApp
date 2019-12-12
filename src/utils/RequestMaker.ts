@@ -87,7 +87,7 @@ export const calculateBestRoute = async (currentLocation: [number, number]) => {
 };
 
 export const sendComment = async (comment: string, bikeDockingStationId: number) => {
-    return await fetch(`${API}/create/comment`, {
+    return await fetch(`${API}/comments/create`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ comment, bikeDockingStationId }),
