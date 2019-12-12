@@ -16,7 +16,7 @@ library.add(fas);
 const searchLookup: IconLookup = { prefix: 'fas', iconName: 'search'};
 const searchIconDefinition: IconDefinition = findIconDefinition(searchLookup);
 
-const signOutLookup: IconLookup = { prefix: 'fas', iconName: 'sign-out'};
+const signOutLookup: IconLookup = { prefix: 'fas', iconName: 'sign-out-alt'};
 const signOutIconDefinition: IconDefinition = findIconDefinition(signOutLookup);
 
 const profileLookup: IconLookup = { prefix: 'fas', iconName: 'user'};
