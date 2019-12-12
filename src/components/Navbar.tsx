@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {WeatherComponent} from "./WeatherComponent";
 import {Link} from "react-router-dom";
-import {logout} from "../utils/RequestMaker";
+import {logout, me} from "../utils/RequestMaker";
 import {useHistory} from "react-router";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,6 +17,7 @@ export const Navbar : React.FC = () => {
             window.location.assign('/login');
         });
     };
+
     function updateUserInput(event:any) {
         setUser(event.target.value);
     }
@@ -24,6 +25,12 @@ export const Navbar : React.FC = () => {
     function handleClick(event: any) {
         history.push(`/search/${user}`);
     }
+
+    const redirectMe = () => {
+        me().then((res) => {
+            history.push(`/users/${res.id}`);
+        })
+    };
 
     return (
         <nav className="navbar navbar-expand navbar-light navbar-back mb-5">
@@ -42,9 +49,9 @@ export const Navbar : React.FC = () => {
                     </button>
                 </form>
                 <div className="divider-vertical"/>
-                <Link to="#" className="btn btn-info my-2 my-sm-0" role="button">
+                <button onClick={redirectMe} className="btn btn-info my-2 my-sm-0">
                     <FontAwesomeIcon icon={faUser}/>
-                </Link>
+                </button>
                 <div className="divider-vertical"/>
                 <button onClick={doLogout} className='btn btn-info my-2 my-sm-0'>
                     <FontAwesomeIcon icon={faSignOutAlt}/>

@@ -104,7 +104,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                           <div style={{marginTop: "10px"}}>
                               N&uacute;mero de espacios libres: {freeSlotNumber}
                           </div>
-                          <button type="button" style= {{justifyContent: "center", marginTop: "10px"}} className="btn btn-primary"
+                          <button type="button" style= {{justifyContent: "center", marginTop: "10px"}} className="btn btn-info"
                                   onClick={handleClick} value={idStation}>
                               Visitar parada
                           </button>

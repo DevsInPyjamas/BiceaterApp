@@ -39,7 +39,7 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary" onClick={searchStation}>
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info" onClick={searchStation}>
                                 Parada mas cercana
                             </button>
                         </div>
@@ -48,7 +48,7 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary">
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info">
                                 Buscar Parada
                             </button>
                         </div>

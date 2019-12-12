@@ -82,7 +82,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     <div className="col-3">
                         <div className="card">
                             <div className="card-body">
-                                <button type="button" className="btn btn-primary" style={{float: "left"}}>Valora !
+                                <button type="button" className="btn btn-info" style={{float: "left"}}>Valora !
                                 </button>
 
                             </div>
@@ -112,7 +112,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                                             <textarea name="comments" id="comments"
                                             onChange={commentHandler} value={comment} placeholder='Comenta lo que quieras.'/>
                                     </div>
-                                    <button type="button" className="btn btn-primary" onClick={sendCommentHandler}>Comenta!</button>
+                                    <button type="button" className="btn btn-info" onClick={sendCommentHandler}>Comenta!</button>
                                 </form>
                             </div>
                         </div>

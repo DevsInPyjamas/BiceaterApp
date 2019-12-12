@@ -64,7 +64,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                                     <textarea name="comments" id="comments"
                                               onChange={commentHandler} value={comment} placeholder='Comenta lo que quieras.'/>
                                 </div>
-                                <button type="button" className="btn btn-primary" onClick={sendCommentHandler}>Comenta!</button>
+                                <button type="button" className="btn btn-info" onClick={sendCommentHandler}>Comenta!</button>
                             </form>
                         </div>
                     </div>
