@@ -36,7 +36,7 @@ export const Navbar : React.FC<userProps> = (props) => {
                 <div className="col-md-4">
                     <WeatherComponent/>
                 </div>
-                <form className="form-inline">
+                <form className="form-inline" onSubmit={(event: any) => event.preventDefault()}>
                     <input className="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Search" value={user} onChange={updateUserInput}/>
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit"  onClick={handleClick}>Buscar</button>
                 </form>
