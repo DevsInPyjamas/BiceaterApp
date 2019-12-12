@@ -3,16 +3,16 @@ import {User} from "../@types/Biceater";
 import { useHistory } from "react-router";
 
 interface CommentProps {
-    authorId: User;
+    author: User;
     text: string;
-    date: Date;
+    date: string;
     commentId?: number;
 }
 
 
 export const Comment: React.FC<CommentProps> = (props) => {
 
-
+    const date = new Date(props.date);
     const history = useHistory();
 
     function handleClick(event: any) {
@@ -26,12 +26,12 @@ export const Comment: React.FC<CommentProps> = (props) => {
                 </div>
                 <div className="col-8 position-static">
                     <div className="card">
-                        <h5 className="card-header">{props.authorId}</h5>
+                        <h5 className="card-header">{props.author.username}</h5>
                         <div className="card-body">
                             <p className="card-text"> {props.text}</p>
                             <div className="row">
                                 <footer className="col">
-                                    {props.date.getTime()}
+                                    {date.getDay()}/{date.getMonth()}/{date.getFullYear()}
                                 </footer>
 
                             </div>

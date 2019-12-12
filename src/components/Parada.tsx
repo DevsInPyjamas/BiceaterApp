@@ -38,7 +38,8 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             retrieveAllCommentsFromStation(stationId,10,0)
                             .then((data: any)=> {
                                 if(data.comments){
-                                setAllComments(data.comments);
+                                    setAllComments(data.comments);
+                                    console.log(data);
                                 }
                            })
             }).catch((err: unknown) => {
@@ -123,7 +124,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                 </div>
 
                 {allComments && allComments.map((comment) => {
-                    return <Comment authorId={comment.authorId} text={comment.text} date={comment.date} commentId={comment.commentId}/>
+                    return <Comment author={comment.author} text={comment.text} date={comment.date as any as string} commentId={comment.commentId}/>
                 })}
 
 

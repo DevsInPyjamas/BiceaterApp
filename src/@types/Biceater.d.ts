@@ -33,7 +33,7 @@ export interface Comment {
     commentId: number;
     text: string;
     date: Date;
-    authorId: User;
+    author: User;
     answersTo?: Comment;
     bikeHireDockingStation?: BikeHireDockingStation;
 }

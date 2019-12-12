@@ -43,7 +43,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
             </div>
             <div className="col-8 position-static">
                 <div className="card">
-                    <h5 className="card-header">{originalComment && originalComment.authorId.username}</h5>
+                    <h5 className="card-header">{originalComment && originalComment.author.username}</h5>
                     <div className="card-body">
                         <p className="card-text"> {originalComment && originalComment.text}</p>
                         <div className="row">
@@ -70,8 +70,8 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                     </div>
 
                     {responses && responses.map((comment) => {
-                        return <CommentComponent key={comment.commentId} authorId={comment.authorId} text={comment.text}
-                        date={comment.date}/>
+                        return <CommentComponent key={comment.commentId} author={comment.author} text={comment.text}
+                        date={comment.date as any as string}/>
                     })}
 
                 </div>
