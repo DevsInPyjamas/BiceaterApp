@@ -36,7 +36,7 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
                 setHobbies(result[0].hobbies)
             })
         }
-    }, [user, name, surname, username, bio, birthDate, hobbies]);
+    }, [user, name, surname, username, bio, birthDate, hobbies, userId]);
 
     const updateProfileCallback = useCallback((event: unknown) => {
         setEditing(false);
