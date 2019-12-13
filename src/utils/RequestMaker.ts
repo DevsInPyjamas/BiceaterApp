@@ -55,7 +55,7 @@ export const retrieveAllStations = async () => {
 };
 
 export const retrieveUserInfo = async (userId: number) => {
-  return await baseRequest<User>(`/users/${userId}`)
+  return await baseRequest<User[]>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
@@ -93,6 +93,16 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
         body: JSON.stringify({ comment, bikeDockingStationId }),
         method: 'POST'
     });
+};
+
+export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
+                                    birthDate: Date | undefined, hobbies: string) => {
+  return await fetch(`${API}/users/update`, {
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({userId, name, surname, username, bio, gender, birthDate, hobbies}),
+      method: 'POST'
+  })
 };
 
 export const logout = async () => {
