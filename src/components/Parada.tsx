@@ -64,6 +64,10 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             });
     }, [stationId, comment]);
 
+    function twitterButtonPressed() {
+        window.open("https://twitter.com/intent/tweet?hashtags=BiceaterPorUnaMalagaVerde%2CBiceaterPorUnaMalagaVerde&amp;original_referer=https%3A%2F%2Fpublish.twitter.com%2F%3FbuttonHashtag%3DBiceaterPorUnaMalagaVerde%26buttonLarge%3Don%26buttonType%3DHashtagButton%26dnt%3D1%26query%3D%2523BiceaterPorUnaMalagaVerde%26widget%3DButton&amp;ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton");
+    }
+
     return (
         <div className="container">
             {station &&
@@ -121,6 +125,11 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                                 </div>
                                 <div style={{marginTop: "10px"}}>
                                     N&uacute;mero de espacios libres: {station.freeSlotNumber.value}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    <button className="btn btn-info my-2 my-sm-0" type="submit"  onClick={twitterButtonPressed}>
+                                        Tweet #BiceaterPorUnaMalagaVerde
+                                    </button>
                                 </div>
                             </div>
                         </div>
