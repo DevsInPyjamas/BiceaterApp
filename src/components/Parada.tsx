@@ -79,18 +79,39 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
-
                     <div className="col" style={{justifyContent: "center"}}>
                         {simpleStation && <MapComponent allStations={simpleStation} zoom={17}/>}
                     </div>
-
                 </div>
+                {station &&
+                <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
+                    <div className="col-6" style={{paddingLeft: "78px"}}>
+                        <div className="card">
+                            <div className="card-body">
+                                <h4>
+                                    Informaci&oacute;n de la parada
+                                </h4>
+                                <div style={{marginTop: "10px"}}>
+                                    Direcci&oacute;n: {station.address.value.streetAddress}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    N&uacute;mero total de espacios: {station.totalSlotNumber.value}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    N&uacute;mero de bicicletas disponibles: {station.availableBikeNumber.value}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    N&uacute;mero de espacios libres: {station.freeSlotNumber.value}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
                 <div className="row" style={{marginBottom: "20px"}}>
                     <div className="col-2">
-
                     </div>
                     <div className="col-8">
                         <div className="card">
