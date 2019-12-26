@@ -5,7 +5,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.7",
+    "@fortawesome/react-fontawesome": "^0.1.8",
     "@types/leaflet-geosearch": "^2.7.1",
     "@types/leaflet-routing-machine": "^3.2.1",
     "@types/node": "12.12.5",

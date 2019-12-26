@@ -50,7 +50,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
 
     return (
       <>
-          <div className="row">
+          <div className="container d-flex justify-content-center">
               <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
                   <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -104,7 +104,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                           <div style={{marginTop: "10px"}}>
                               N&uacute;mero de espacios libres: {freeSlotNumber}
                           </div>
-                          <button type="button" style= {{justifyContent: "center", marginTop: "10px"}} className="btn btn-primary"
+                          <button type="button" style= {{justifyContent: "center", marginTop: "10px"}} className="btn btn-info"
                                   onClick={handleClick} value={idStation}>
                               Visitar parada
                           </button>

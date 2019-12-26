@@ -32,9 +32,9 @@ export const baseRequest = async<T> (route: string, config?: RequestInit): Promi
     if(requestResult.status === 401) {
         window.location.assign(calculateUrl());
     }
-    if(!requestResult.ok) {
+    /*if(!requestResult.ok) {
         throw new Error('ERROR:\n' + requestResult.statusText);
-    }
+    }*/
     return requestResult.json();
 };
 
@@ -52,6 +52,10 @@ export const retrieveStation = async (stationId: number) => {
 
 export const retrieveAllStations = async () => {
     return await baseRequest<ReducedBieHiringStation[]>('/stations/');
+};
+
+export const retrieveUserInfo = async (userId: number) => {
+  return await baseRequest<User[]>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
@@ -83,7 +87,7 @@ export const calculateBestRoute = async (currentLocation: [number, number]) => {
 };
 
 export const sendComment = async (comment: string, bikeDockingStationId: number) => {
-    return await fetch(`${API}/create/comment`, {
+    return await fetch(`${API}/comments/create`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ comment, bikeDockingStationId }),
@@ -91,6 +95,39 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
+                                    birthDate: Date | undefined, hobbies: string) => {
+  return await fetch(`${API}/users/update`, {
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({userId, name, surname, username, bio, gender, birthDate, hobbies}),
+      method: 'POST'
+  })
+};
+
 export const logout = async () => {
     return await fetch(`${API}/logout`);
+};
+export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
+    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
+};
+
+export const retrieveResponsesToComment = async (commentId: number) => {
+    return await baseRequest<Comment[]>(`/comments/${commentId}/responses`);
+};
+
+export const retrieveComment = async (commentId: number) => {
+    return await baseRequest<Comment>(`/comments/${commentId}`);
+};
+
+export const retrieveUsers = async (user: string)=>{
+    return await baseRequest<User[]>(`/users?user_input=${user}`);
+};
+
+export const me = async () => {
+    return await baseRequest<{id: number}>(`/users/me`);
+};
+
+export const deleteComment = async (commentId: number) => {
+    return await baseRequest<void>(`/comments/${commentId}/delete`);
 };
