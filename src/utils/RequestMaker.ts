@@ -111,7 +111,7 @@ export const retrieveComment = async (commentId: number) => {
 };
 
 export const retrieveUsers = async (user: string)=>{
-    return await baseRequest<User[]>(`/users?user_input=${user}`);
+    return await baseRequest<User[]>(`/users/?user_input=${user}`);
 };
 
 export const me = async () => {

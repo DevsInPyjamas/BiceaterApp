@@ -30,15 +30,15 @@ export const Comment: React.FC<CommentProps> = (props) => {
                         <div className="card-body">
                             <p className="card-text"> {props.text}</p>
                             <div className="row">
-                                <footer className="col">
-                                    {date.getDay()}/{date.getMonth()}/{date.getFullYear()}
-                                </footer>
-
+                                <button type="button" className="btn btn-info" style={{position: 'absolute', right: 25}} onClick={handleClick} value={props.commentId}>Respuestas</button>
+                            </div>
+                            <div className="row">
+                                <p className="card-text"><small className="text-muted">  -{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small></p>
                             </div>
 
                         </div>
                     </div>
-                    {props.commentId && <button onClick={handleClick} value={props.commentId}>Respuestas</button>}
+
                 </div>
                 <div className="col-2">
 

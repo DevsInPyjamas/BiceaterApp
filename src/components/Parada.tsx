@@ -49,6 +49,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     }, [station, stationId,allComments]);
 
+
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
     }, []);
@@ -56,6 +57,8 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const sendCommentHandler = useCallback((event: unknown)=>{
         sendComment(comment, stationId).then();
     }, [stationId, comment]);
+
+    console.log(allComments);
 
     return (
         <div className="container">
