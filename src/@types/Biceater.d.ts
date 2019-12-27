@@ -12,10 +12,11 @@ export interface User {
     username: string;
     name: string;
     surname: string;
-    dateOfBirth: Date;
-    imagePath: string;
-    bio: string;
+    DoB: Date;
+    image: string;
+    description: string;
     genre: Genre;
+    hobbies: string;
 }
 
 export interface BikeHireDockingStation {
@@ -30,7 +31,7 @@ export interface BikeHireDockingStation {
 }
 
 export interface Comment {
-    commentId: number;
+    comment_id: number;
     text: string;
     date: Date;
     author: User;

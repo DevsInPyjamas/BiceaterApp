@@ -55,7 +55,7 @@ export const retrieveAllStations = async () => {
 };
 
 export const retrieveUserInfo = async (userId: number) => {
-  return await baseRequest<User>(`/users/${userId}`)
+  return await baseRequest<User[]>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
@@ -95,11 +95,21 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
+                                    birthDate: Date | undefined, hobbies: string) => {
+  return await fetch(`${API}/users/update`, {
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({userId, name, surname, username, bio, gender, birthDate, hobbies}),
+      method: 'POST'
+  })
+};
+
 export const logout = async () => {
     return await fetch(`${API}/logout`);
 };
 export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
-    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=${taking}&page=${page}`);
+    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
 };
 
 export const retrieveResponsesToComment = async (commentId: number) => {
@@ -116,4 +126,8 @@ export const retrieveUsers = async (user: string)=>{
 
 export const me = async () => {
     return await baseRequest<{id: number}>(`/users/me`);
+};
+
+export const deleteComment = async (commentId: number) => {
+    return await baseRequest<void>(`/comments/${commentId}/delete`);
 };

@@ -35,19 +35,19 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                         result.address.value
                     ]
                 }]);
-            retrieveAllCommentsFromStation(stationId,10,0)
-                            .then((data: any)=> {
-                                if(data.comments){
-                                    setAllComments(data.comments);
-                                    console.log(data);
-                                }
-                           })
             }).catch((err: unknown) => {
                 console.log('Fuck');
             });
+            retrieveAllCommentsFromStation(stationId,10,0)
+                .then((data: any)=> {
+                    if(data.comments){
+                        setAllComments(data.comments);
+                        console.log(data);
+                    }
+            });
         }
 
-    }, [station, stationId,allComments]);
+    }, [station, stationId, allComments]);
 
 
     const commentHandler = useCallback((event: any) => {
@@ -56,6 +56,13 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     const sendCommentHandler = useCallback((event: unknown)=>{
         sendComment(comment, stationId).then();
+        retrieveAllCommentsFromStation(stationId,10,0)
+            .then((data: any)=> {
+                if(data.comments){
+                    setAllComments(data.comments);
+                    console.log(data); 
+                }
+            });
     }, [stationId, comment]);
 
     console.log(allComments);
@@ -127,7 +134,8 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                 </div>
 
                 {allComments && allComments.map((comment) => {
-                    return <Comment author={comment.author} text={comment.text} date={comment.date as any as string} commentId={comment.commentId}/>
+                    return <Comment author={comment.author} text={comment.text} date={comment.date as any as string}
+                                    comment_id={comment.comment_id}/>
                 })}
 
 

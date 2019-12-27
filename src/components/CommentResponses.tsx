@@ -5,13 +5,13 @@ import { RouteComponentProps } from "react-router";
 import { Comment as CommentComponent } from './Comment';
 
 interface RouteParameters {
-    commentId: string;
+    idComment: string;
 }
 
 type CommentResponsesProps = RouteComponentProps<RouteParameters>
 
 export const CommentResponses: React.FC<CommentResponsesProps> = (props: CommentResponsesProps) => {
-    const commentId = parseInt(props.match.params.commentId);
+    const commentId = parseInt(props.match.params.idComment);
 
     const [comment, setComment] = useState<string>('');
     const [originalComment, setOriginalComment] = useState<Comment>();
@@ -20,7 +20,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
     useEffect(() => {
         if(!originalComment) {
             retrieveComment(commentId)
-                .then((result:any) => setOriginalComment(result))
+                .then((result:any) => setOriginalComment(result.comments))
         }
         if(!responses) {
             retrieveResponsesToComment(commentId)
@@ -70,7 +70,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                     </div>
 
                     {responses && responses.map((comment) => {
-                        return <CommentComponent key={comment.commentId} author={comment.author} text={comment.text}
+                        return <CommentComponent key={comment.comment_id} author={comment.author} text={comment.text}
                         date={comment.date as any as string}/>
                     })}
 
