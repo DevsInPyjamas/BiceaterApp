@@ -7,6 +7,7 @@ import GeoSearch from "./GeoSearch";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {useHistory} from "react-router";
 import Routing from "./RoutingMachine";
+import LocationControl from "./LocationControl";
 
 interface MapProps {
     position?: [number, number];
@@ -57,6 +58,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                   />
                   <GeoSearch />
+                  <LocationControl/>
                   {position && <Marker position={position} icon={L.icon({
                       iconUrl: require('../assets/location-icon.png'),
                       iconRetinaUrl: require('../assets/location-icon.png'),
