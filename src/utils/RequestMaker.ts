@@ -68,6 +68,7 @@ export const retrieveComments = async (userId: number, taking: number, page: num
 };
 
 export const calculateBestRoute = async (currentLocation: [number, number]) => {
+    console.log(currentLocation);
     const request = await fetch(`${API}/routes/calculate`, {
         method: 'POST',
         body: JSON.stringify({ currentLocation: currentLocation }),
@@ -106,7 +107,7 @@ export const sendUpdateUser = async(userId: number, name: string, surname: strin
 };
 
 export const logout = async () => {
-    return await fetch(`${API}/logout`);
+    return await fetch(`${API}/logout/`);
 };
 export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
     return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
@@ -121,7 +122,7 @@ export const retrieveComment = async (commentId: number) => {
 };
 
 export const retrieveUsers = async (user: string)=>{
-    return await baseRequest<User[]>(`/users?user_input=${user}`);
+    return await baseRequest<User[]>(`/users/?user_input=${user}`);
 };
 
 export const me = async () => {
