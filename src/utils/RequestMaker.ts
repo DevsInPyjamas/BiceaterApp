@@ -1,11 +1,11 @@
 import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/Biceater";
 
-const API = 'https://biceater-back.herokuapp.com/api';
+const API = '/api';
 
 const calculateUrl = () => {
     let url;
     if(process.env.NODE_ENV === 'production') {
-        url = 'https://biceater-back.herokuapp.com/api/login/google-oauth2';
+        url = '/api/login/google-oauth2';
     } else {
         url = `http://localhost:4000/api/login/google-oauth2`;
     }
@@ -55,7 +55,7 @@ export const retrieveAllStations = async () => {
 };
 
 export const retrieveUserInfo = async (userId: number) => {
-  return await baseRequest<User[]>(`/users/${userId}`)
+  return await baseRequest<User>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
@@ -68,7 +68,6 @@ export const retrieveComments = async (userId: number, taking: number, page: num
 };
 
 export const calculateBestRoute = async (currentLocation: [number, number]) => {
-    console.log(currentLocation);
     const request = await fetch(`${API}/routes/calculate`, {
         method: 'POST',
         body: JSON.stringify({ currentLocation: currentLocation }),
