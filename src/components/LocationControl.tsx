@@ -1,4 +1,5 @@
-import L from 'leaflet'
+import * as L from 'leaflet'
+import 'leaflet.locatecontrol';
 import { MapControl } from "react-leaflet";
 import { withLeaflet } from "react-leaflet";
 
