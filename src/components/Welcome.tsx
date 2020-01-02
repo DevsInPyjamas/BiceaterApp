@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {MapComponent} from "./MapComponent";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {calculateBestRoute, retrieveAllStations} from "../utils/RequestMaker";
+import {useHistory} from "react-router";
 
 export const Welcome : React.FC = () => {
 
+    const history = useHistory();
     const [stations, setStations] = useState<ReducedBieHiringStation[]>();
     const [route, setRoute] = useState<[number, number]>();
     const [direction, setDirection] = useState<string>();
@@ -33,6 +35,10 @@ export const Welcome : React.FC = () => {
         }
     }
 
+    function redirectStation(event: any){
+        history.push(`/searchStation`);
+    }
+
     return (
         <div className="container">
             <div className="row" style={{marginBottom: "20px"}}>
@@ -48,7 +54,7 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info">
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info" onClick={redirectStation}>
                                 Buscar Parada
                             </button>
                         </div>
