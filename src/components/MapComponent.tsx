@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
-import L from "leaflet";
+import * as L from "leaflet";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import "../styles/index.css"
 import GeoSearch from "./GeoSearch";
@@ -26,7 +26,8 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                                                       zoom, idStation, availableBikeNumber,
                                                       freeSlotNumber, totalSlotNumber}: MapProps) => {
     const [isMapInit, setIsMapInit] = useState<boolean>(false);
-    const [map, setMap] = useState<any>();
+    const [map, setMap] = useState<L.Map>();
+    const [coordinates, setCoordinates] = useState<[number, number] | undefined>(position);
     const saveMap = (map: any) => {
         setIsMapInit(true);
         setMap(map);
@@ -59,7 +60,11 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                   />
                   <GeoSearch />
                   <LocationControl/>
-                  {position && <Marker position={position} icon={L.icon({
+                  {map && map.on('locationfound', (location) => {
+                        setCoordinates([location.latlng.lat, location.latlng.lng]);
+                        console.log(location.latlng);
+                  })}
+                  {coordinates && <Marker position={coordinates} icon={L.icon({
                       iconUrl: require('../assets/location-icon.png'),
                       iconRetinaUrl: require('../assets/location-icon.png'),
                       shadowUrl: iconShadow,
@@ -81,8 +86,8 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                           </Popup>
                       </Marker>
                   })}
-                  {isMapInit && position && routing && direction &&
-                        <Routing map={map} fromCoordinates={position} toCoordinates={routing} direction={direction}/>
+                  {isMapInit && coordinates && routing && direction &&
+                        <Routing map={map} fromCoordinates={coordinates} toCoordinates={routing} direction={direction}/>
                   }
               </Map>
           </div>
