@@ -48,22 +48,23 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
         }
     };
 
+    const onLocationFound = (location: any) => {
+        setCoordinates([location.latlng.lat, location.latlng.lng]);
+        console.log(location.latlng);
+    };
+
     const mapCenter = evaluateMapCenter();
 
     return (
       <>
           <div className="container d-flex justify-content-center">
-              <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
+              <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap} onLocationFound={onLocationFound}>
                   <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                   />
                   <GeoSearch />
                   <LocationControl/>
-                  {map && map.on('locationfound', (location) => {
-                        setCoordinates([location.latlng.lat, location.latlng.lng]);
-                        console.log(location.latlng);
-                  })}
                   {coordinates && <Marker position={coordinates} icon={L.icon({
                       iconUrl: require('../assets/location-icon.png'),
                       iconRetinaUrl: require('../assets/location-icon.png'),
