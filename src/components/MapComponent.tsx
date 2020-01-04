@@ -3,7 +3,6 @@ import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import * as L from "leaflet";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import "../styles/index.css"
-import GeoSearch from "./GeoSearch";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {useHistory} from "react-router";
 import Routing from "./RoutingMachine";
@@ -65,7 +64,6 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                   />
-                  <GeoSearch />
                   <LocationControl/>
                   {coordinates && <Marker position={coordinates} icon={L.icon({
                       iconUrl: require('../assets/location-icon.png'),
@@ -96,7 +94,7 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
           </div>
           {routing &&
           <div className="row" style={{marginTop: "20px"}}>
-              <div className="col-6" style={{paddingLeft: "20px"}}>
+              <div className="col-6" style={{paddingLeft: "50px"}}>
                   <div className="card">
                       <div className="card-body">
                           <h4>
