@@ -55,11 +55,11 @@ export const retrieveAllStations = async () => {
 };
 
 export const retrieveUserInfo = async (userId: number) => {
-  return await baseRequest<User[]>(`/users/${userId}`)
+  return await baseRequest<User>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
-    const result = await fetch(`http://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=37dfa1a42278b10ac000810d0c4fc720`);
+    const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=37dfa1a42278b10ac000810d0c4fc720`);
     return await result.json();
 };
 
@@ -106,7 +106,7 @@ export const sendUpdateUser = async(userId: number, name: string, surname: strin
 };
 
 export const logout = async () => {
-    return await fetch(`${API}/logout`);
+    return await fetch(`${API}/logout/`);
 };
 export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
     return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
@@ -121,7 +121,7 @@ export const retrieveComment = async (commentId: number) => {
 };
 
 export const retrieveUsers = async (user: string)=>{
-    return await baseRequest<User[]>(`/users?user_input=${user}`);
+    return await baseRequest<User[]>(`/users/?user_input=${user}`);
 };
 
 export const me = async () => {
