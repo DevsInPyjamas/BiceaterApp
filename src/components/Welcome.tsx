@@ -12,7 +12,7 @@ export const Welcome : React.FC = () => {
     const [availableBikeNumber, setAvailableBikeNumber] = useState<number>();
     const [freeSlotNumber, setFreeSlotNumber] = useState<number>();
     const [totalSlotNumber, setTotalSlotNumber] = useState<number>();
-    const [coordinates, setCoordinates] = useState<[number, number] | undefined>([0,0]);
+    const [coordinates, setCoordinates] = useState<[number, number] | undefined>([36.72116082659559, -4.464346934397554]);
 
     useEffect(() => {
         retrieveAllStations().then((result: ReducedBieHiringStation[]) => {
@@ -61,7 +61,7 @@ export const Welcome : React.FC = () => {
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations &&
                     <MapComponent
-                        position={[36.72116082659559, -4.464346934397554]}
+                        position={coordinates}
                         routing={route}
                         allStations={stations}
                         zoom={15}

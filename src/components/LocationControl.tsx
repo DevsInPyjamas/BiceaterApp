@@ -7,6 +7,7 @@ export class LocationControl extends MapControl{
     createLeafletElement() {
         return L.control.locate({
             keepCurrentZoomLevel: true,
+            drawMarker: false,
             locateOptions: {
                 enableHighAccuracy: true
             }
