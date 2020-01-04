@@ -19,15 +19,16 @@ interface MapProps {
     availableBikeNumber?: number;
     freeSlotNumber?: number;
     totalSlotNumber?: number;
+    coordinates?: [number, number];
+    setCoordinates?: (coord: [number, number]) => void;
 }
 
 export const MapComponent : React.FC<MapProps> = ({position, routing,
                                                       direction, allStations,
                                                       zoom, idStation, availableBikeNumber,
-                                                      freeSlotNumber, totalSlotNumber}: MapProps) => {
+                                                      freeSlotNumber, totalSlotNumber, setCoordinates, coordinates}: MapProps) => {
     const [isMapInit, setIsMapInit] = useState<boolean>(false);
     const [map, setMap] = useState<L.Map>();
-    const [coordinates, setCoordinates] = useState<[number, number] | undefined>(position);
     const saveMap = (map: any) => {
         setIsMapInit(true);
         setMap(map);
@@ -49,8 +50,9 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
     };
 
     const onLocationFound = (location: any) => {
-        setCoordinates([location.latlng.lat, location.latlng.lng]);
-        console.log(location.latlng);
+        if(setCoordinates) {
+            setCoordinates([location.latlng.lat, location.latlng.lng]);
+        }
     };
 
     const mapCenter = evaluateMapCenter();

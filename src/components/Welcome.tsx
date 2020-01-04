@@ -12,6 +12,8 @@ export const Welcome : React.FC = () => {
     const [availableBikeNumber, setAvailableBikeNumber] = useState<number>();
     const [freeSlotNumber, setFreeSlotNumber] = useState<number>();
     const [totalSlotNumber, setTotalSlotNumber] = useState<number>();
+    const [coordinates, setCoordinates] = useState<[number, number] | undefined>([0,0]);
+
     useEffect(() => {
         retrieveAllStations().then((result: ReducedBieHiringStation[]) => {
             setStations(result);
@@ -19,8 +21,8 @@ export const Welcome : React.FC = () => {
     }, []);
 
     function searchStation(event: any){
-        if(!route) {
-            calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {direction: string,
+        if(!route && coordinates) {
+            calculateBestRoute(coordinates).then((res : {direction: string,
                 location: [number, number], availableBikeNumber: number, freeSlotNumber: number, id: number,
                 totalSlotNumber: number}) => {
                 setRoute(res.location);
@@ -68,6 +70,8 @@ export const Welcome : React.FC = () => {
                         availableBikeNumber={availableBikeNumber}
                         freeSlotNumber={freeSlotNumber}
                         totalSlotNumber={totalSlotNumber}
+                        coordinates={coordinates}
+                        setCoordinates={setCoordinates}
                     />
                     }
                 </div>
