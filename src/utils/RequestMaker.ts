@@ -32,9 +32,9 @@ export const baseRequest = async<T> (route: string, config?: RequestInit): Promi
     if(requestResult.status === 401) {
         window.location.assign(calculateUrl());
     }
-    if(!requestResult.ok) {
+    /*if(!requestResult.ok) {
         throw new Error('ERROR:\n' + requestResult.statusText);
-    }
+    }*/
     return requestResult.json();
 };
 
@@ -59,7 +59,7 @@ export const retrieveUserInfo = async (userId: number) => {
 };
 
 export const weatherRequest = async () => {
-    const result = await fetch(`http://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=37dfa1a42278b10ac000810d0c4fc720`);
+    const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=37dfa1a42278b10ac000810d0c4fc720`);
     return await result.json();
 };
 
@@ -95,6 +95,39 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
+                                    birthDate: Date | undefined, hobbies: string) => {
+  return await fetch(`${API}/users/update`, {
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({userId, name, surname, username, bio, gender, birthDate, hobbies}),
+      method: 'POST'
+  })
+};
+
 export const logout = async () => {
-    return await fetch(`${API}/logout`);
+    return await fetch(`${API}/logout/`);
+};
+export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
+    return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
+};
+
+export const retrieveResponsesToComment = async (commentId: number) => {
+    return await baseRequest<Comment[]>(`/comments/${commentId}/responses`);
+};
+
+export const retrieveComment = async (commentId: number) => {
+    return await baseRequest<Comment>(`/comments/${commentId}`);
+};
+
+export const retrieveUsers = async (user: string)=>{
+    return await baseRequest<User[]>(`/users/?user_input=${user}`);
+};
+
+export const me = async () => {
+    return await baseRequest<{id: number}>(`/users/me`);
+};
+
+export const deleteComment = async (commentId: number) => {
+    return await baseRequest<void>(`/comments/${commentId}/delete`);
 };

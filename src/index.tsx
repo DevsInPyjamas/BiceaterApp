@@ -7,6 +7,14 @@ import * as serviceWorker from './serviceWorker';
 import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import './styles/main.sass';
+
+if(process.env.NODE_ENV === 'production') {
+    console.log(process.env.PUBLIC_URL);
+    if (window.location.protocol !== 'https:') {
+        window.location.protocol = 'https:';
+    }
+}
 
 ReactDOM.render(
     <BrowserRouter>

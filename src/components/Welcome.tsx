@@ -12,6 +12,8 @@ export const Welcome : React.FC = () => {
     const [availableBikeNumber, setAvailableBikeNumber] = useState<number>();
     const [freeSlotNumber, setFreeSlotNumber] = useState<number>();
     const [totalSlotNumber, setTotalSlotNumber] = useState<number>();
+    const [coordinates, setCoordinates] = useState<[number, number] | undefined>([36.72116082659559, -4.464346934397554]);
+
     useEffect(() => {
         retrieveAllStations().then((result: ReducedBieHiringStation[]) => {
             setStations(result);
@@ -19,10 +21,10 @@ export const Welcome : React.FC = () => {
     }, []);
 
     function searchStation(event: any){
-        if(!route) {
-            calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {direction: string,
-                        location: [number, number], availableBikeNumber: number, freeSlotNumber: number, id: number,
-                        totalSlotNumber: number}) => {
+        if(!route && coordinates) {
+            calculateBestRoute(coordinates).then((res : {direction: string,
+                location: [number, number], availableBikeNumber: number, freeSlotNumber: number, id: number,
+                totalSlotNumber: number}) => {
                 setRoute(res.location);
                 setDirection(res.direction);
                 setId(res.id);
@@ -39,7 +41,7 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary" onClick={searchStation}>
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info" onClick={searchStation}>
                                 Parada mas cercana
                             </button>
                         </div>
@@ -48,27 +50,29 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-primary">
+                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info">
                                 Buscar Parada
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="row" style={{marginTop: "20px",marginBottom: "20px"}}>
+            <div className="row container d-flex justify-content-center" style={{marginTop: "20px",marginBottom: "20px"}}>
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations &&
-                        <MapComponent
-                            position={[36.72116082659559, -4.464346934397554]}
-                            routing={route}
-                            allStations={stations}
-                            zoom={15}
-                            direction={direction}
-                            idStation={id}
-                            availableBikeNumber={availableBikeNumber}
-                            freeSlotNumber={freeSlotNumber}
-                            totalSlotNumber={totalSlotNumber}
-                        />
+                    <MapComponent
+                        position={coordinates}
+                        routing={route}
+                        allStations={stations}
+                        zoom={15}
+                        direction={direction}
+                        idStation={id}
+                        availableBikeNumber={availableBikeNumber}
+                        freeSlotNumber={freeSlotNumber}
+                        totalSlotNumber={totalSlotNumber}
+                        coordinates={coordinates}
+                        setCoordinates={setCoordinates}
+                    />
                     }
                 </div>
             </div>

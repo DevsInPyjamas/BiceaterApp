@@ -15,8 +15,8 @@ export class Routing extends MapLayer<RoutingProps> {
     createLeafletElement() {
         const { map, fromCoordinates, toCoordinates, direction } = this.props;
         const waypoints = [
-                L.latLng(fromCoordinates[0], fromCoordinates[1]),
-                L.latLng(toCoordinates[0], toCoordinates[1]),
+            L.latLng(fromCoordinates[0], fromCoordinates[1]),
+            L.latLng(toCoordinates[0], toCoordinates[1]),
         ];
         let leafletElement = L.Routing.control({
             waypoints: waypoints,
@@ -51,7 +51,7 @@ export class Routing extends MapLayer<RoutingProps> {
                 },
             }),
             router: new L.Routing.OSRMv1({
-                serviceUrl: process.env.REACT_APP_OSRM_SERVER_HOST,
+                serviceUrl: 'https://biceater.majorcadevs.com/api/osrm/route/v1',
                 routingOptions:{
 
                 }

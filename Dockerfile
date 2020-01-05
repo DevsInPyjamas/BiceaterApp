@@ -16,5 +16,7 @@ RUN npm install && \
 FROM nginx:alpine
 
 COPY default.conf /etc/nginx/conf.d/default.conf
+COPY replace_tokens.sh app/
 COPY --from=builder /app/build/ /usr/share/nginx/html/
 
+CMD /app/replace_tokens.sh

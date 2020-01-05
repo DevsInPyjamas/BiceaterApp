@@ -8,14 +8,15 @@ export interface JSONResult<T> {
 export type Genre = 'Male' | 'Female';
 
 export interface User {
-    userId: number;
+    id: number;
     username: string;
     name: string;
     surname: string;
-    dateOfBirth: Date;
-    imagePath: string;
-    bio: string;
+    DoB: Date;
+    image: string;
+    description: string;
     genre: Genre;
+    hobbies: string;
 }
 
 export interface BikeHireDockingStation {
@@ -30,10 +31,10 @@ export interface BikeHireDockingStation {
 }
 
 export interface Comment {
-    commentId: number;
+    comment_id: number;
     text: string;
     date: Date;
-    authorId: User;
+    author: User;
     answersTo?: Comment;
     bikeHireDockingStation?: BikeHireDockingStation;
 }
