@@ -50,6 +50,10 @@ export const retrieveStation = async (stationId: number) => {
     return await baseRequest<BikeHireDockingStation>(`/stations/${stationId}`);
 };
 
+export const retrieveStationByAddress = async (stationAddress: string) => {
+    return await baseRequest<BikeHireDockingStation>(`/stations/?station_input=${stationAddress}`)
+};
+
 export const retrieveAllStations = async () => {
     return await baseRequest<ReducedBieHiringStation[]>('/stations/');
 };

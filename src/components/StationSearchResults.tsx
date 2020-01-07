@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {RouteComponentProps, useHistory} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {ReducedBieHiringStation} from "../@types/Biceater";
-import {retrieveUsers} from "../utils/RequestMaker";
+import {BikeHireDockingStation} from "../@types/Biceater";
+import {retrieveStationByAddress} from "../utils/RequestMaker";
 
 interface StationSearchParams{
     station: string
@@ -13,30 +13,33 @@ type StationSearchProps = RouteComponentProps<StationSearchParams>
 
 export const StationSearchResults : React.FC<StationSearchProps> = (props: StationSearchProps) => {
 
-    const station = props.match.params.station
+    const station = props.match.params.station;
     const history = useHistory();
-    const [allStations, setAllStations] = useState<ReducedBieHiringStation[]>([]);
+
+    const [allStations, setAllStations] = useState<BikeHireDockingStation[]>([]);
     const [stationSearch,setStationSearch] = useState<string>("");
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
-        retrieveUsers(station).then((data:any) => {
+        if(!isLoaded){
+            retrieveStationByAddress(station).then((data:any) => {
                 setAllStations(data);
             });
-    }, [station]);
+            setIsLoaded(true);
+        }
+    }, [allStations, station, isLoaded]);
 
     function updateStationInput(event:any) {
         setStationSearch(event.target.value);
     }
 
-    function handleClick(event:any){
+    function handleClick(){
         history.push(`/resultStation/${stationSearch}`)
     }
 
     function accessStation(event:any){
         history.replace(`/station/${event.target.value}`)
     }
-
-    let stationList = Object.values(allStations);
 
     return(
         <div className={"container"}>
@@ -52,13 +55,12 @@ export const StationSearchResults : React.FC<StationSearchProps> = (props: Stati
             <br/>
             <h2>Estaciones</h2>
             <div>
-                {stationList.map((stations) =>{
-                    const key = Object.keys(station)[0];
+                {allStations && allStations.map((stations) =>{
                     return(
                         <div className="card">
-                            <h5 className="card-header">{stations[key][1].streetAddress}</h5>
+                            <h5 className="card-header">{stations.address.value.streetAddress}</h5>
                             <div className="card-body">
-                                <button className="btn btn-light" value={key} type="submit" onClick={accessStation}> Acceder Estacion</button>
+                                <button className="btn btn-light" value={stations.id} type="submit" onClick={accessStation}> Acceder Estacion</button>
                             </div>
                         </div>
                     );
@@ -66,4 +68,4 @@ export const StationSearchResults : React.FC<StationSearchProps> = (props: Stati
             </div>
         </div>
     )
-}
+};
