@@ -44,7 +44,7 @@ export const Welcome : React.FC = () => {
         setStation(event.target.value);
     }
 
-    function handleClick(event:any){
+    function handleClick(){
         history.push(`/resultStation/${station}`)
     }
 

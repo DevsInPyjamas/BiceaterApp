@@ -34,11 +34,12 @@ export const StationSearchResults : React.FC<StationSearchProps> = (props: Stati
     }
 
     function handleClick(){
-        history.push(`/resultStation/${stationSearch}`)
+        history.push(`/resultStation/${stationSearch}`);
+        window.location.reload();
     }
 
     function accessStation(event:any){
-        history.replace(`/station/${event.target.value}`)
+        history.replace(`/station/${event.target.value}`);
     }
 
     return(
