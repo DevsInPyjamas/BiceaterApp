@@ -10,7 +10,6 @@ import { Navbar } from "./components/Navbar";
 import {UserProfile} from "./components/UserProfile";
 import {UserSearch} from "./components/UserSearch";
 import {CommentResponses} from "./components/CommentResponses";
-import {StationSearch} from "./components/StationSearch";
 import {StationSearchResults} from "./components/StationSearchResults";
 
 export const Routes : React.FC = () => {
@@ -25,7 +24,6 @@ export const Routes : React.FC = () => {
                     <Route path='/comments/:idComment' component={CommentResponses}/>
                     <Route exact path='/' component={Welcome} />
                     <Route path='/users/:userId' component={UserProfile}/>
-                    <Route path='/searchStation/' component={StationSearch}/>
                     <Route path='/resultStation/:station' component={StationSearchResults}/>
                 </Switch>
             </>

@@ -3,11 +3,14 @@ import {MapComponent} from "./MapComponent";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {calculateBestRoute, retrieveAllStations} from "../utils/RequestMaker";
 import {useHistory} from "react-router";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
 
 export const Welcome : React.FC = () => {
 
     const history = useHistory();
     const [stations, setStations] = useState<ReducedBieHiringStation[]>();
+    const [station,setStation] = useState<string>("");
     const [route, setRoute] = useState<[number, number]>();
     const [direction, setDirection] = useState<string>();
     const [id, setId] = useState<number>();
@@ -37,8 +40,12 @@ export const Welcome : React.FC = () => {
         }
     }
 
-    function redirectStation(event: any){
-        history.push(`/searchStation`);
+    function updateStationInput(event:any) {
+        setStation(event.target.value);
+    }
+
+    function handleClick(event:any){
+        history.push(`/resultStation/${station}`)
     }
 
     return (
@@ -56,9 +63,13 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info" onClick={redirectStation}>
-                                Buscar Parada
-                            </button>
+                            <form className="form-inline" onSubmit={(event: any) => event.preventDefault()}>
+                               <input className="form-control mr-sm-2" type="search" placeholder="Calle estación"
+                                       aria-label="Search" value={station} onChange={updateStationInput}/>
+                                <button className="btn btn-info my-2 my-sm-0" type="submit"  onClick={handleClick}><
+                                    FontAwesomeIcon icon={faSearch}/>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
