@@ -51,7 +51,7 @@ export const retrieveStation = async (stationId: number) => {
 };
 
 export const retrieveStationByAddress = async (stationAddress: string) => {
-    const request = await fetch(`${API}/station/search`, {
+    const request = await fetch(`${API}/stations/search`, {
         method: 'POST',
         body: JSON.stringify({stationAddress: stationAddress}),
         credentials: 'include',
