@@ -51,7 +51,22 @@ export const retrieveStation = async (stationId: number) => {
 };
 
 export const retrieveStationByAddress = async (stationAddress: string) => {
-    return await baseRequest<BikeHireDockingStation>(`/stations/?station_input=${stationAddress}`)
+    const request = await fetch(`${API}/station/search`, {
+        method: 'POST',
+        body: JSON.stringify({stationAddress: stationAddress}),
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if(request.status === 401) {
+        window.location.replace('/login');
+    }
+
+    if(!request.ok) {
+        throw new Error('ERROR:\n' + request.statusText);
+    }
+
+    return request.json();
 };
 
 export const retrieveAllStations = async () => {
