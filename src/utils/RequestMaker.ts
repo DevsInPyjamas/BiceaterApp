@@ -50,12 +50,31 @@ export const retrieveStation = async (stationId: number) => {
     return await baseRequest<BikeHireDockingStation>(`/stations/${stationId}`);
 };
 
+export const retrieveStationByAddress = async (stationAddress: string) => {
+    const request = await fetch(`${API}/stations/search`, {
+        method: 'POST',
+        body: JSON.stringify({stationAddress: stationAddress}),
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if(request.status === 401) {
+        window.location.replace('/login');
+    }
+
+    if(!request.ok) {
+        throw new Error('ERROR:\n' + request.statusText);
+    }
+
+    return request.json();
+};
+
 export const retrieveAllStations = async () => {
     return await baseRequest<ReducedBieHiringStation[]>('/stations/');
 };
 
 export const retrieveUserInfo = async (userId: number) => {
-  return await baseRequest<User>(`/users/${userId}`)
+  return await baseRequest<User[]>(`/users/${userId}`)
 };
 
 export const weatherRequest = async () => {
@@ -93,6 +112,19 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
         body: JSON.stringify({ comment, bikeDockingStationId }),
         method: 'POST'
     });
+};
+
+export const sendRating = async (rating: number, station_id: number) => {
+    return await fetch(`${API}/rating/create/`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ rating, station_id }),
+        method: 'POST'
+    });
+};
+
+export const ratingAverage = async (station_id: number) =>  {
+    return await baseRequest<number>(`/rating/average/${station_id}`);
 };
 
 export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
