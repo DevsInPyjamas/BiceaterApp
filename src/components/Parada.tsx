@@ -73,6 +73,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     console.log(data); 
                 }
             });
+        window.location.reload();
     }, [stationId, comment]);
 
     const sendRatingHandler = useCallback((event: any) => {
