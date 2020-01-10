@@ -50,6 +50,25 @@ export const retrieveStation = async (stationId: number) => {
     return await baseRequest<BikeHireDockingStation>(`/stations/${stationId}`);
 };
 
+export const retrieveStationByAddress = async (stationAddress: string) => {
+    const request = await fetch(`${API}/stations/search`, {
+        method: 'POST',
+        body: JSON.stringify({stationAddress: stationAddress}),
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if(request.status === 401) {
+        window.location.replace('/login');
+    }
+
+    if(!request.ok) {
+        throw new Error('ERROR:\n' + request.statusText);
+    }
+
+    return request.json();
+};
+
 export const retrieveAllStations = async () => {
     return await baseRequest<ReducedBieHiringStation[]>('/stations/');
 };
@@ -59,7 +78,7 @@ export const retrieveUserInfo = async (userId: number) => {
 };
 
 export const weatherRequest = async () => {
-    const result = await fetch(`http://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=37dfa1a42278b10ac000810d0c4fc720`);
+    const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=2514256&units=metric&lang=es&appid=37dfa1a42278b10ac000810d0c4fc720`);
     return await result.json();
 };
 
@@ -95,6 +114,19 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendRating = async (rating: number, station_id: number) => {
+    return await fetch(`${API}/rating/create/`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ rating, station_id }),
+        method: 'POST'
+    });
+};
+
+export const ratingAverage = async (station_id: number) =>  {
+    return await baseRequest<number>(`/rating/average/${station_id}`);
+};
+
 export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
                                     birthDate: Date | undefined, hobbies: string) => {
   return await fetch(`${API}/users/update`, {
@@ -106,7 +138,7 @@ export const sendUpdateUser = async(userId: number, name: string, surname: strin
 };
 
 export const logout = async () => {
-    return await fetch(`${API}/logout`);
+    return await fetch(`${API}/logout/`);
 };
 export const retrieveAllCommentsFromStation = async (stationId: number, taking: number, page: number)=>{
     return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);

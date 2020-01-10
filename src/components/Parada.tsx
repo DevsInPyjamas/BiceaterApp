@@ -2,7 +2,13 @@ import React, {useState, useEffect, useCallback} from 'react';
 import { MapComponent } from "./MapComponent";
 import { RouteComponentProps } from "react-router";
 import { createSequence } from "../utils/NumberUtilities";
-import {retrieveStation, sendComment, retrieveAllCommentsFromStation} from "../utils/RequestMaker";
+import {
+    retrieveStation,
+    sendComment,
+    retrieveAllCommentsFromStation,
+    ratingAverage,
+    sendRating
+} from "../utils/RequestMaker";
 import {BikeHireDockingStation, ReducedBieHiringStation, Comment as Comentario} from "../@types/Biceater";
 import {Comment} from  "./Comment";
 
@@ -20,6 +26,8 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [simpleStation, setSimpleStation] = useState<ReducedBieHiringStation[]>();
     const [comment, setComment] = useState<string>('');
     const [allComments, setAllComments] = useState<Comentario[]>([]);
+    const [rating, setRating] = useState<number>();
+    const [myRating, setMyRating] = useState<number>(3);
 
     useEffect(() => {
         if(!station) {
@@ -45,10 +53,12 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                         console.log(data);
                     }
             });
+            ratingAverage(stationId).then((rating: number) => {
+                setRating(rating)
+            });
         }
 
     }, [station, stationId, allComments]);
-
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
@@ -65,7 +75,21 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             });
     }, [stationId, comment]);
 
-    console.log(allComments);
+    const sendRatingHandler = useCallback((event: any) => {
+        sendRating(myRating, stationId).then();
+        ratingAverage(stationId).then((rating: number) => {
+                setRating(rating)
+            });
+        window.location.reload();
+    }, [stationId, myRating]);
+
+    function twitterButtonPressed() {
+        window.open("https://twitter.com/intent/tweet?hashtags=BiceaterPorUnaMalagaVerde%2CBiceaterPorUnaMalagaVerde&amp;original_referer=https%3A%2F%2Fpublish.twitter.com%2F%3FbuttonHashtag%3DBiceaterPorUnaMalagaVerde%26buttonLarge%3Don%26buttonType%3DHashtagButton%26dnt%3D1%26query%3D%2523BiceaterPorUnaMalagaVerde%26widget%3DButton&amp;ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton");
+    }
+
+    function ratingHandler(event: any) {
+        setMyRating(event.target.value);
+    }
 
     return (
         <div className="container">
@@ -75,16 +99,15 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     <div className="col-6">
                         <div className="card">
                             <div className="card-body">
-                                Estacion {station.id} en {station.address.value.streetAddress}
+                                Estacion {station.id} en {station.address.value.streetAddress} con una valoración de {rating}
                             </div>
                         </div>
                     </div>
-
                     <div className="col-3">
                         <div className="card">
                             <div className="card-body">
-                                <select className="form-control" style={{marginRight: "10px"}}>
-                                    {createSequence(1, 10).map((el) => <option value={el} key={el}>{el}</option>)}
+                                <select className="form-control" style={{marginRight: "10px"}} value={myRating} onChange={ratingHandler}>
+                                    {createSequence(1, 6).map((el) => <option value={el} key={el}>{el}</option>)}
                                 </select>
 
                             </div>
@@ -93,24 +116,50 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                     <div className="col-3">
                         <div className="card">
                             <div className="card-body">
-                                <button type="button" className="btn btn-info" style={{float: "left"}}>Valora !
+                                <button type="button" className="btn btn-info" style={{float: "left"}} onClick={sendRatingHandler}>
+                                    Valora !
                                 </button>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
-
                     <div className="col" style={{justifyContent: "center"}}>
                         {simpleStation && <MapComponent allStations={simpleStation} zoom={17}/>}
                     </div>
-
                 </div>
+                {station &&
+                <div className="row" style={{marginTop: "20px", marginBottom: "20px"}}>
+                    <div className="col-6" style={{paddingLeft: "78px"}}>
+                        <div className="card">
+                            <div className="card-body">
+                                <h4>
+                                    Informaci&oacute;n de la parada
+                                </h4>
+                                <div style={{marginTop: "10px"}}>
+                                    Direcci&oacute;n: {station.address.value.streetAddress}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    N&uacute;mero total de espacios: {station.totalSlotNumber.value}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    N&uacute;mero de bicicletas disponibles: {station.availableBikeNumber.value}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    N&uacute;mero de espacios libres: {station.freeSlotNumber.value}
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    <button className="btn btn-info my-2 my-sm-0" type="submit"  onClick={twitterButtonPressed}>
+                                        Tweet #BiceaterPorUnaMalagaVerde
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
                 <div className="row" style={{marginBottom: "20px"}}>
                     <div className="col-2">
-
                     </div>
                     <div className="col-8">
                         <div className="card">

@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
-import L from "leaflet";
+import * as L from "leaflet";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import "../styles/index.css"
-import GeoSearch from "./GeoSearch";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {useHistory} from "react-router";
 import Routing from "./RoutingMachine";
+import LocationControl from "./LocationControl";
 
 interface MapProps {
     position?: [number, number];
@@ -18,14 +18,16 @@ interface MapProps {
     availableBikeNumber?: number;
     freeSlotNumber?: number;
     totalSlotNumber?: number;
+    coordinates?: [number, number];
+    setCoordinates?: (coord: [number, number]) => void;
 }
 
 export const MapComponent : React.FC<MapProps> = ({position, routing,
                                                       direction, allStations,
                                                       zoom, idStation, availableBikeNumber,
-                                                      freeSlotNumber, totalSlotNumber}: MapProps) => {
+                                                      freeSlotNumber, totalSlotNumber, setCoordinates, coordinates}: MapProps) => {
     const [isMapInit, setIsMapInit] = useState<boolean>(false);
-    const [map, setMap] = useState<any>();
+    const [map, setMap] = useState<L.Map>();
     const saveMap = (map: any) => {
         setIsMapInit(true);
         setMap(map);
@@ -46,18 +48,24 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
         }
     };
 
+    const onLocationFound = (location: any) => {
+        if(setCoordinates) {
+            setCoordinates([location.latlng.lat, location.latlng.lng]);
+        }
+    };
+
     const mapCenter = evaluateMapCenter();
 
     return (
       <>
           <div className="container d-flex justify-content-center">
-              <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap}>
+              <Map center={mapCenter} zoom={zoom} id="mapid" maxZoom={19} minZoom={13} ref={saveMap} onLocationFound={onLocationFound}>
                   <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                   />
-                  <GeoSearch />
-                  {position && <Marker position={position} icon={L.icon({
+                  <LocationControl/>
+                  {coordinates && <Marker position={coordinates} icon={L.icon({
                       iconUrl: require('../assets/location-icon.png'),
                       iconRetinaUrl: require('../assets/location-icon.png'),
                       shadowUrl: iconShadow,
@@ -79,14 +87,14 @@ export const MapComponent : React.FC<MapProps> = ({position, routing,
                           </Popup>
                       </Marker>
                   })}
-                  {isMapInit && position && routing && direction &&
-                        <Routing map={map} fromCoordinates={position} toCoordinates={routing} direction={direction}/>
+                  {isMapInit && coordinates && routing && direction &&
+                        <Routing map={map} fromCoordinates={coordinates} toCoordinates={routing} direction={direction}/>
                   }
               </Map>
           </div>
           {routing &&
           <div className="row" style={{marginTop: "20px"}}>
-              <div className="col-6" style={{paddingLeft: "20px"}}>
+              <div className="col-6" style={{paddingLeft: "50px"}}>
                   <div className="card">
                       <div className="card-body">
                           <h4>

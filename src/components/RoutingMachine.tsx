@@ -51,7 +51,7 @@ export class Routing extends MapLayer<RoutingProps> {
                 },
             }),
             router: new L.Routing.OSRMv1({
-                serviceUrl: process.env.REACT_APP_OSRM_SERVER_HOST,
+                serviceUrl: 'https://biceater.majorcadevs.com/api/osrm/route/v1',
                 routingOptions:{
 
                 }

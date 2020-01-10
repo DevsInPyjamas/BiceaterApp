@@ -2,16 +2,23 @@ import React, {useEffect, useState} from 'react';
 import {MapComponent} from "./MapComponent";
 import {ReducedBieHiringStation} from "../@types/Biceater";
 import {calculateBestRoute, retrieveAllStations} from "../utils/RequestMaker";
+import {useHistory} from "react-router";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
 
 export const Welcome : React.FC = () => {
 
+    const history = useHistory();
     const [stations, setStations] = useState<ReducedBieHiringStation[]>();
+    const [station,setStation] = useState<string>("");
     const [route, setRoute] = useState<[number, number]>();
     const [direction, setDirection] = useState<string>();
     const [id, setId] = useState<number>();
     const [availableBikeNumber, setAvailableBikeNumber] = useState<number>();
     const [freeSlotNumber, setFreeSlotNumber] = useState<number>();
     const [totalSlotNumber, setTotalSlotNumber] = useState<number>();
+    const [coordinates, setCoordinates] = useState<[number, number] | undefined>([36.72116082659559, -4.464346934397554]);
+
     useEffect(() => {
         retrieveAllStations().then((result: ReducedBieHiringStation[]) => {
             setStations(result);
@@ -19,8 +26,8 @@ export const Welcome : React.FC = () => {
     }, []);
 
     function searchStation(event: any){
-        if(!route) {
-            calculateBestRoute([36.72116082659559, -4.464346934397554]).then((res : {direction: string,
+        if(!route && coordinates) {
+            calculateBestRoute(coordinates).then((res : {direction: string,
                 location: [number, number], availableBikeNumber: number, freeSlotNumber: number, id: number,
                 totalSlotNumber: number}) => {
                 setRoute(res.location);
@@ -31,6 +38,14 @@ export const Welcome : React.FC = () => {
                 setTotalSlotNumber(res.totalSlotNumber);
             });
         }
+    }
+
+    function updateStationInput(event:any) {
+        setStation(event.target.value);
+    }
+
+    function handleClick(){
+        history.push(`/resultStation/${station}`)
     }
 
     return (
@@ -48,9 +63,13 @@ export const Welcome : React.FC = () => {
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <div className="card">
                         <div className="card-body">
-                            <button type="button" style= {{justifyContent: "center"}} className="btn btn-info">
-                                Buscar Parada
-                            </button>
+                            <form className="form-inline" onSubmit={(event: any) => event.preventDefault()}>
+                               <input className="form-control mr-sm-2" type="search" placeholder="Calle estación"
+                                       aria-label="Search" value={station} onChange={updateStationInput}/>
+                                <button className="btn btn-info my-2 my-sm-0" type="submit"  onClick={handleClick}><
+                                    FontAwesomeIcon icon={faSearch}/>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -59,7 +78,7 @@ export const Welcome : React.FC = () => {
                 <div className="col" style={{justifyContent: "center"}}>
                     {stations &&
                     <MapComponent
-                        position={[36.72116082659559, -4.464346934397554]}
+                        position={coordinates}
                         routing={route}
                         allStations={stations}
                         zoom={15}
@@ -68,6 +87,8 @@ export const Welcome : React.FC = () => {
                         availableBikeNumber={availableBikeNumber}
                         freeSlotNumber={freeSlotNumber}
                         totalSlotNumber={totalSlotNumber}
+                        coordinates={coordinates}
+                        setCoordinates={setCoordinates}
                     />
                     }
                 </div>
