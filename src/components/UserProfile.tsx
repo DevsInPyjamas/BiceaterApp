@@ -25,16 +25,17 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
 
     useEffect(() => {
         if(user === undefined){
-            retrieveUserInfo(userId).then((result: User) => {
-                setUser(result);
-                setName(result.name);
-                setSurname(result.surname);
-                setUsername(result.username);
-                setBio(result.description);
-                setBirthDate(result.DoB);
-                setGender(result.genre);
-                setHobbies(result.hobbies)
-            })
+            retrieveUserInfo(userId).then((result: User[]) => {
+                const user = result[0];
+                setUser(user);
+                setName(user.name);
+                setSurname(user.surname);
+                setUsername(user.username);
+                setBio(user.description);
+                setBirthDate(user.DoB);
+                setGender(user.genre);
+                setHobbies(user.hobbies);
+            });
         }
     }, [user, name, surname, username, bio, birthDate, hobbies, userId]);
 
