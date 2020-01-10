@@ -114,6 +114,19 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendRating = async (rating: number, station_id: number) => {
+    return await fetch(`${API}/rating/create/`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ rating, station_id }),
+        method: 'POST'
+    });
+};
+
+export const ratingAverage = async (station_id: number) =>  {
+    return await baseRequest<number>(`/rating/average/${station_id}`);
+};
+
 export const sendUpdateUser = async(userId: number, name: string, surname: string, username: string, bio: string, gender: string,
                                     birthDate: Date | undefined, hobbies: string) => {
   return await fetch(`${API}/users/update`, {
