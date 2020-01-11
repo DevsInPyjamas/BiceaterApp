@@ -41,7 +41,7 @@ export const UserSearch: React.FC<UserSearchProps> = (props: UserSearchProps) =>
                         <div className="card">
                             <h5 className="card-header">{users.username}</h5>
                             <div className="card-body">
-                                <button className="btn btn-light" value={users.id} type="submit" onClick={accesProfile}> Acceder Perfil</button>
+                                <button className="btn btn-info" value={users.id} type="submit" onClick={accesProfile}> Acceder Perfil</button>
                             </div>
                         </div>
                     );

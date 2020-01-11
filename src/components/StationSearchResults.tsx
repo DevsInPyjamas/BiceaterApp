@@ -61,7 +61,7 @@ export const StationSearchResults : React.FC<StationSearchProps> = (props: Stati
                         <div className="card">
                             <h5 className="card-header">{stations.address.value.streetAddress}</h5>
                             <div className="card-body">
-                                <button className="btn btn-light" value={stations.id} type="submit" onClick={accessStation}> Acceder Estacion</button>
+                                <button className="btn btn-info" value={stations.id} type="submit" onClick={accessStation}> Acceder Estacion</button>
                             </div>
                         </div>
                     );
