@@ -17,25 +17,27 @@ export const StationSearchResults : React.FC<StationSearchProps> = (props: Stati
     const history = useHistory();
 
     const [allStations, setAllStations] = useState<BikeHireDockingStation[]>([]);
-    const [stationSearch,setStationSearch] = useState<string>("");
+    const [stationSearch,setStationSearch] = useState<string>(station);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [needsReload, setNeedsReload] = useState(true);
 
     useEffect(() => {
-        if(!isLoaded){
-            retrieveStationByAddress(station).then((data:any) => {
+        if(!isLoaded || needsReload){
+            retrieveStationByAddress(stationSearch).then((data:any) => {
                 setAllStations(data);
             });
             setIsLoaded(true);
         }
-    }, [allStations, station, isLoaded]);
+        setNeedsReload(false);
+    }, [allStations, station, isLoaded, stationSearch, needsReload]);
 
     function updateStationInput(event:any) {
         setStationSearch(event.target.value);
     }
 
     function handleClick(){
-        history.push(`/resultStation/${stationSearch}`);
-        window.location.reload();
+        setNeedsReload(true);
+        // window.location.reload();
     }
 
     function accessStation(event:any){
