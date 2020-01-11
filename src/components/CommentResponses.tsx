@@ -1,21 +1,31 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {retrieveComment, retrieveResponsesToComment, sendComment} from "../utils/RequestMaker";
+import {
+    retrieveAllCommentsFromStation,
+    retrieveComment,
+    retrieveResponsesToComment,
+    sendComment
+} from "../utils/RequestMaker";
 import {Comment} from '../@types/Biceater';
 import { RouteComponentProps } from "react-router";
 import { Comment as CommentComponent } from './Comment';
 
 interface RouteParameters {
     comment_id: string;
+    stationId:string;
 }
 
+// @ts-ignore
 type CommentResponsesProps = RouteComponentProps<RouteParameters>
 
 export const CommentResponses: React.FC<CommentResponsesProps> = (props: CommentResponsesProps) => {
     const comment_id = parseInt(props.match.params.comment_id);
+    const stationId = parseInt(props.match.params.stationId);
+
 
     const [comment, setComment] = useState<string>('');
     const [originalComment, setOriginalComment] = useState<Comment>();
     const [responses, setResponses] = useState<Comment[]>([]);
+    const [allComments, setAllComments] = useState<Comment[]>([]);
 
     useEffect(() => {
 
@@ -29,6 +39,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
             setResponses(result);
         });
 
+
     }, [comment_id]);
 
     const commentHandler = useCallback((event: any) => {
@@ -36,14 +47,22 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
     }, []);
 
     const sendCommentHandler = useCallback((event: unknown)=>{
-        sendComment(comment, comment_id).then();
-    }, [comment_id, comment]);
+        sendComment(comment, stationId).then();
+        retrieveAllCommentsFromStation(stationId,10,0)
+            .then((data: any)=> {
+                    setAllComments(data.comments);
+                    setResponses(data.comments);
+                    console.log(data);
+
+            });
+        window.location.reload();
+    }, [stationId, comment]);
 
     let originalCommentDate;
     if(originalComment && originalComment.date){
         originalCommentDate=new Date(originalComment.date);
     }
-
+    console.log(allComments);
     return (
 
         <div className="row" style={{marginBottom: "20px"}}>
@@ -76,13 +95,13 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                             </form>
                         </div>
 
-                        <div> <h3  style ={{textAlign: "center"}}>   Respuestas Anteriores</h3> </div>
+                        <div> <h3  style ={{textAlign: "center"}}>   Respondiendo a </h3> </div>
 
 
-                    {responses && responses.map((comment) => {
-                        return <CommentComponent key={comment.comment_id} author={comment.author} text={comment.text}
-                        date={comment.date as any as string}/>
-                    })}
+                        {responses && responses.map((comment) => {
+                            return <CommentComponent key={comment.comment_id} author={comment.author} text={comment.text}
+                                                     date={comment.date as any as string} stationId={stationId}/>
+                        })}
 
                 </div>
         </div>

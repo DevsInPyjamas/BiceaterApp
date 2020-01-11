@@ -65,15 +65,16 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     }, []);
 
     const sendCommentHandler = useCallback((event: unknown)=>{
-        sendComment(comment, stationId).then();
-        retrieveAllCommentsFromStation(stationId,10,0)
-            .then((data: any)=> {
-                if(data.comments){
-                    setAllComments(data.comments);
-                    console.log(data); 
-                }
-            });
-    }, [stationId, comment]);
+            sendComment(comment, stationId).then();
+            retrieveAllCommentsFromStation(stationId,10,0)
+                .then((data: any)=> {
+                    if(data.comments){
+                        setAllComments(data.comments);
+                        console.log(data);
+                    }
+                });
+            window.location.reload();
+        }, [stationId, comment]);
 
     const sendRatingHandler = useCallback((event: any) => {
         sendRating(myRating, stationId).then();
@@ -184,7 +185,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
                 {allComments && allComments.map((comment) => {
                     return <Comment author={comment.author} text={comment.text} date={comment.date as any as string}
-                                    comment_id={comment.comment_id}/>
+                                    comment_id={comment.comment_id} stationId = {stationId}/>
                 })}
 
 

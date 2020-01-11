@@ -21,7 +21,7 @@ export const Routes : React.FC = () => {
                     <Route path='/login' component={LoginForm}/>
                     <Route path='/station/:stationId' component={Parada}/>
                     <Route path='/user/:user' component={UserSearch} />
-                    <Route path='/comments/:comment_id/response' component={CommentResponses}/>
+                    <Route path='/comments/:comment_id/response/station/:stationId' component={CommentResponses}/>
                     <Route exact path='/' component={Welcome} />
                     <Route path='/users/:userId' component={UserProfile}/>
                     <Route path='/resultStation/:station' component={StationSearchResults}/>
