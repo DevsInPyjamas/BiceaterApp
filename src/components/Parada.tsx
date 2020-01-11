@@ -28,6 +28,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [allComments, setAllComments] = useState<Comentario[]>([]);
     const [rating, setRating] = useState<number>();
     const [myRating, setMyRating] = useState<number>(3);
+    const [needsRefresh, setNeedsRefresh] = useState(true);
 
     useEffect(() => {
         if(!station) {
@@ -46,26 +47,8 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             }).catch((err: unknown) => {
                 console.log('Fuck');
             });
-            retrieveAllCommentsFromStation(stationId,10,0)
-                .then((data: any)=> {
-                    if(data.comments){
-                        setAllComments(data.comments);
-                        console.log(data);
-                    }
-            });
-            ratingAverage(stationId).then((rating: number) => {
-                setRating(rating)
-            });
         }
-
-    }, [station, stationId, allComments]);
-
-    const commentHandler = useCallback((event: any) => {
-        setComment(event.target.value);
-    }, []);
-
-    const sendCommentHandler = useCallback((event: unknown)=>{
-            sendComment(comment, stationId).then();
+        if(needsRefresh) {
             retrieveAllCommentsFromStation(stationId,10,0)
                 .then((data: any)=> {
                     if(data.comments){
@@ -73,15 +56,28 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
                         console.log(data);
                     }
                 });
-            window.location.reload();
-        }, [stationId, comment]);
+        }
+        if (needsRefresh) {
+            ratingAverage(stationId).then((rating: number) => {
+                setRating(rating)
+            });
+        }
+        setNeedsRefresh(false);
+    }, [station, stationId, allComments, rating, needsRefresh]);
+
+    const commentHandler = useCallback((event: any) => {
+        setComment(event.target.value);
+    }, []);
+
+    const sendCommentHandler = useCallback((event: unknown)=>{
+        sendComment(comment, stationId).then();
+        setNeedsRefresh(true);
+        setComment('');
+    }, [stationId, comment]);
 
     const sendRatingHandler = useCallback((event: any) => {
         sendRating(myRating, stationId).then();
-        ratingAverage(stationId).then((rating: number) => {
-                setRating(rating)
-            });
-        window.location.reload();
+        setNeedsRefresh(true);
     }, [stationId, myRating]);
 
     function twitterButtonPressed() {
