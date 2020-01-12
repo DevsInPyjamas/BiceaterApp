@@ -50,7 +50,7 @@ export const Comment: React.FC<CommentProps> = (props) => {
 
                                     </div>
                                     <div className="row">
-                                        <p className="card-text"><small style={{position: 'absolute', right: 25}} className="text-muted">  {date.getDay()}/{date.getMonth()+1}/{date.getFullYear()}</small></p>
+                                        <p className="card-text"><small style={{position: 'absolute', right: 25}} className="text-muted">  {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</small></p>
                                     </div>
                         </div>
 

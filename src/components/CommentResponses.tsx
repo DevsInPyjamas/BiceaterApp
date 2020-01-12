@@ -1,9 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
-    retrieveAllCommentsFromStation,
     retrieveComment,
     retrieveResponsesToComment,
-    sendComment
+    sendResponseComment,
 } from "../utils/RequestMaker";
 import {Comment} from '../@types/Biceater';
 import { RouteComponentProps } from "react-router";
@@ -25,7 +24,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
     const [comment, setComment] = useState<string>('');
     const [originalComment, setOriginalComment] = useState<Comment>();
     const [responses, setResponses] = useState<Comment[]>([]);
-    const [allComments, setAllComments] = useState<Comment[]>([]);
+    const [needsRefresh, setNeedsRefresh] = useState(true);
 
     useEffect(() => {
 
@@ -39,30 +38,25 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
             setResponses(result);
         });
 
+        setNeedsRefresh(false);
 
-    }, [comment_id]);
+
+    }, [comment_id,needsRefresh]);
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
     }, []);
 
     const sendCommentHandler = useCallback((event: unknown)=>{
-        sendComment(comment, stationId).then();
-        retrieveAllCommentsFromStation(stationId,10,0)
-            .then((data: any)=> {
-                    setAllComments(data.comments);
-                    setResponses(data.comments);
-                    console.log(data);
-
-            });
-        window.location.reload();
-    }, [stationId, comment]);
+        sendResponseComment(comment, comment_id,stationId).then();
+        setNeedsRefresh(true);
+        setComment('');
+    }, [comment_id, comment,stationId]);
 
     let originalCommentDate;
     if(originalComment && originalComment.date){
         originalCommentDate=new Date(originalComment.date);
     }
-    console.log(allComments);
     return (
 
         <div className="row" style={{marginBottom: "20px"}}>
@@ -75,7 +69,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                     <div className="card-body">
                         <p className="card-text">{originalComment && originalComment.text}</p>
                         <div className="row">
-                            <p className="card-text"><small style={{position: 'absolute', right: 25}} className="text-muted">  {originalCommentDate && `${originalCommentDate.getDay()}/${originalCommentDate.getMonth()+1}/${originalCommentDate.getFullYear()}`}</small></p>
+                            <p className="card-text"><small style={{position: 'absolute', right: 25}} className="text-muted">  {originalCommentDate && `${originalCommentDate.getDate()}/${originalCommentDate.getMonth()+1}/${originalCommentDate.getFullYear()}`}</small></p>
                         </div>
 
                     </div>
@@ -95,7 +89,7 @@ export const CommentResponses: React.FC<CommentResponsesProps> = (props: Comment
                             </form>
                         </div>
 
-                        <div> <h3  style ={{textAlign: "center"}}>   Respondiendo a </h3> </div>
+                        <div> <h3  style ={{textAlign: "center"}}>   Respuestas </h3> </div>
 
 
                         {responses && responses.map((comment) => {

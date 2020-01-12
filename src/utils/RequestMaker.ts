@@ -114,6 +114,15 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendResponseComment = async (comment: string, comment_id: number, bikeDockingStationId:number ) => {
+    return await fetch(`${API}/comments/create`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ comment, comment_id,bikeDockingStationId }),
+        method: 'POST'
+    });
+};
+
 export const sendRating = async (rating: number, station_id: number) => {
     return await fetch(`${API}/rating/create/`, {
         headers: { 'Content-Type': 'application/json' },
