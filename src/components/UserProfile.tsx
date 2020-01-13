@@ -79,9 +79,6 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
             {user &&
                 <div className='col'>
                     <div className='row justify-content-center p-2'>
-                        <img className='ml-2' src={user.image} alt="Usted no ha subido ninguna imagen"/>
-                    </div>
-                    <div className='row justify-content-center p-2'>
                         Nombre: <input className='ml-2' onChange={nameChangeHandler} readOnly={!editing} value={name} />
                     </div>
                     <div className='row justify-content-center p-2'>
