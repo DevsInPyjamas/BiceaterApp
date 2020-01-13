@@ -1,6 +1,6 @@
 import {BikeHireDockingStation, ReducedBieHiringStation, User} from "../@types/Biceater";
 
-const API = '/api';
+const API = 'https://biceater-back.herokuapp.com/api';
 
 const calculateUrl = () => {
     let url;
