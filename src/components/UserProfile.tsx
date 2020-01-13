@@ -41,7 +41,11 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
 
     const updateProfileCallback = useCallback((event: unknown) => {
         setEditing(false);
-        sendUpdateUser(userId, name, surname, username, bio, gender, birthDate, hobbies).then();
+        sendUpdateUser(userId, name, surname, username, bio, gender, birthDate, hobbies).then(() => {
+            window.location.reload(true)
+        }).catch(() => {
+            window.alert('No puedes editar usuarios que no sea el tuyo');
+        });
     }, [userId, name, surname, username, bio, birthDate, gender, hobbies]);
 
     const nameChangeHandler = useCallback((event: any) => {
@@ -78,9 +82,6 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
             <button className='btn btn-info' onClick={(event: unknown) => setEditing(true)}>Editar perfil</button>
             {user &&
                 <div className='col'>
-                    <div className='row justify-content-center p-2'>
-                        <img className='ml-2' src={user.image} alt="Usted no ha subido ninguna imagen"/>
-                    </div>
                     <div className='row justify-content-center p-2'>
                         Nombre: <input className='ml-2' onChange={nameChangeHandler} readOnly={!editing} value={name} />
                     </div>

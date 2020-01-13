@@ -8,17 +8,21 @@ interface CommentProps {
     text: string;
     date: string;
     comment_id?: number;
+    stationId: number;
+
 }
 
 
 export const Comment: React.FC<CommentProps> = (props) => {
 
+
     const date = new Date(props.date);
     const history = useHistory();
+    console.log(props.stationId);
 
     function handleClick(event: any) {
-        history.replace(`/comments/${props.comment_id}`);
-    }
+        history.push(`/comments/${props.comment_id}/response/station/${props.stationId}`);
+        }
 
     const borrar = (event: any) => {
         deleteComment(props.comment_id!).then(() => {
@@ -33,26 +37,30 @@ export const Comment: React.FC<CommentProps> = (props) => {
             <div className="col-2">
 
             </div>
-            <div className="col-8 position-static">
-                <div className="card">
-                    <h5 className="card-header">{props.author.username}</h5>
-                    <div className="card-body">
-                        <p className="card-text"> {props.text}</p>
-                        <div className="row">
-                            <footer className="col">
-                                {date.getDay()}/{date.getMonth()}/{date.getFullYear()}
-                            </footer>
-
+                <div className="col-8 position-static">
+                    <div className="card">
+                        <h5 className="card-header">{props.author.username}</h5>
+                        <div className="card-body">
+                                <p className="card-text"> {props.text}</p>
+                                    <div className="row">
+                                        <div className="btn-group">
+                                            <button onClick={borrar} className='btn btn-info'>Borrar</button>
+                                            <button type="button" className="btn btn-info"  onClick={handleClick} value={props.comment_id}>Respuestas</button>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <p className="card-text"><small style={{position: 'absolute', right: 25}} className="text-muted">  {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</small></p>
+                                    </div>
                         </div>
 
-                    </div>
+
+                     </div>
+
                 </div>
-                <button onClick={borrar} className='btn btn-info'>Borrar</button>
-                {props.comment_id && <button className='btn btn-info' onClick={handleClick} value={props.comment_id}>Respuestas</button>}
-            </div>
             <div className="col-2">
 
             </div>
         </div>
+
     );
 };

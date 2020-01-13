@@ -28,6 +28,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
     const [allComments, setAllComments] = useState<Comentario[]>([]);
     const [rating, setRating] = useState<number>();
     const [myRating, setMyRating] = useState<number>(3);
+    const [needsRefresh, setNeedsRefresh] = useState(true);
 
     useEffect(() => {
         if(!station) {
@@ -46,19 +47,23 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
             }).catch((err: unknown) => {
                 console.log('Fuck');
             });
+        }
+        if(needsRefresh) {
             retrieveAllCommentsFromStation(stationId,10,0)
                 .then((data: any)=> {
                     if(data.comments){
                         setAllComments(data.comments);
                         console.log(data);
                     }
-            });
+                });
+        }
+        if (needsRefresh) {
             ratingAverage(stationId).then((rating: number) => {
                 setRating(rating)
             });
         }
-
-    }, [station, stationId, allComments]);
+        setNeedsRefresh(false);
+    }, [station, stationId, allComments, rating, needsRefresh]);
 
     const commentHandler = useCallback((event: any) => {
         setComment(event.target.value);
@@ -66,21 +71,13 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
     const sendCommentHandler = useCallback((event: unknown)=>{
         sendComment(comment, stationId).then();
-        retrieveAllCommentsFromStation(stationId,10,0)
-            .then((data: any)=> {
-                if(data.comments){
-                    setAllComments(data.comments);
-                    console.log(data); 
-                }
-            });
+        setNeedsRefresh(true);
+        setComment('');
     }, [stationId, comment]);
 
     const sendRatingHandler = useCallback((event: any) => {
         sendRating(myRating, stationId).then();
-        ratingAverage(stationId).then((rating: number) => {
-                setRating(rating)
-            });
-        window.location.reload();
+        setNeedsRefresh(true);
     }, [stationId, myRating]);
 
     function twitterButtonPressed() {
@@ -184,7 +181,7 @@ export const Parada : React.FC<StationProps> = (props: StationProps) => {
 
                 {allComments && allComments.map((comment) => {
                     return <Comment author={comment.author} text={comment.text} date={comment.date as any as string}
-                                    comment_id={comment.comment_id}/>
+                                    comment_id={comment.comment_id} stationId = {stationId}/>
                 })}
 
 

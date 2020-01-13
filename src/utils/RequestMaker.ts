@@ -114,6 +114,15 @@ export const sendComment = async (comment: string, bikeDockingStationId: number)
     });
 };
 
+export const sendResponseComment = async (comment: string, comment_id: number, bikeDockingStationId:number ) => {
+    return await fetch(`${API}/comments/create`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ comment, comment_id,bikeDockingStationId }),
+        method: 'POST'
+    });
+};
+
 export const sendRating = async (rating: number, station_id: number) => {
     return await fetch(`${API}/rating/create/`, {
         headers: { 'Content-Type': 'application/json' },
@@ -144,12 +153,12 @@ export const retrieveAllCommentsFromStation = async (stationId: number, taking: 
     return await baseRequest<Comment[]>(`/stations/${stationId}/comments/?taking=100000&page=${page}`);
 };
 
-export const retrieveResponsesToComment = async (commentId: number) => {
-    return await baseRequest<Comment[]>(`/comments/${commentId}/responses`);
+export const retrieveResponsesToComment = async (comment_id: number) => {
+    return await baseRequest<Comment[]>(`/comments/${comment_id}/responses`);
 };
 
-export const retrieveComment = async (commentId: number) => {
-    return await baseRequest<Comment>(`/comments/${commentId}`);
+export const retrieveComment = async (comment_id: number) => {
+    return await baseRequest<Comment>(`/comments/${comment_id}/comment`);
 };
 
 export const retrieveUsers = async (user: string)=>{

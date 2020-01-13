@@ -23,7 +23,7 @@ export const Navbar : React.FC = () => {
     }
 
     function handleClick(event: any) {
-        history.push(`/search/${user}`);
+        history.push(`/user/${user}`);
     }
 
     const redirectMe = () => {

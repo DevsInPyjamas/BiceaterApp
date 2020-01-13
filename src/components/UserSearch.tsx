@@ -15,37 +15,40 @@ export const UserSearch: React.FC<UserSearchProps> = (props: UserSearchProps) =>
     const history = useHistory();
 
     const [allUsers, setAllUsers] = useState<User[]>([]);
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    //const [isLoaded, setIsLoaded] = useState<boolean>(false);type array javascript
+
 
     useEffect(() => {
-        if(!isLoaded) {
-            retrieveUsers(user)
-            .then((data:any) => {
+
+            retrieveUsers(user).then((data: User[]) => {
                 setAllUsers(data);
             });
-            setIsLoaded(true);
-        }
-    }, [allUsers, user, isLoaded]);
+
+
+    }, [user]);
+
 
     const accesProfile = (event: any) => {
         history.replace(`/users/${event.target.value}` );
     };
 
+    let a = Object.values(allUsers);
+
+
+
     return (
         <div className="container">
             <h2>Usuarios</h2>
             <div>
-                {allUsers && allUsers.map((users) =>{
-                    console.log(allUsers);
-                    return(
-                        <div className="card">
-                            <h5 className="card-header">{users.username}</h5>
-                            <div className="card-body">
-                                <button className="btn btn-light" value={users.id} type="submit" onClick={accesProfile}> Acceder Perfil</button>
-                            </div>
+                {a.map((users) => {
+
+                    return  <div className="card">
+                        <h5 className="card-header">{users.username}</h5>
+                        <div className="card-body">
+                            <button className="btn btn-light" value={users.id} type="submit" onClick={accesProfile}> Acceder Perfil</button>
                         </div>
-                    );
-                }) }
+                    </div>
+                })}
             </div>
 
         </div>
