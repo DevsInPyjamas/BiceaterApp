@@ -47,7 +47,6 @@ export const Comment: React.FC<CommentProps> = (props) => {
                                             <button onClick={borrar} className='btn btn-info'>Borrar</button>
                                             <button type="button" className="btn btn-info"  onClick={handleClick} value={props.comment_id}>Respuestas</button>
                                         </div>
-
                                     </div>
                                     <div className="row">
                                         <p className="card-text"><small style={{position: 'absolute', right: 25}} className="text-muted">  {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</small></p>

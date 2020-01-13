@@ -41,7 +41,11 @@ export const UserProfile: React.FC<UserProps> = (props: UserProps) => {
 
     const updateProfileCallback = useCallback((event: unknown) => {
         setEditing(false);
-        sendUpdateUser(userId, name, surname, username, bio, gender, birthDate, hobbies).then();
+        sendUpdateUser(userId, name, surname, username, bio, gender, birthDate, hobbies).then(() => {
+            window.location.reload(true)
+        }).catch(() => {
+            window.alert('No puedes editar usuarios que no sea el tuyo');
+        });
     }, [userId, name, surname, username, bio, birthDate, gender, hobbies]);
 
     const nameChangeHandler = useCallback((event: any) => {
