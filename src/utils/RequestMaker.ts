@@ -106,30 +106,42 @@ export const calculateBestRoute = async (currentLocation: [number, number]) => {
 };
 
 export const sendComment = async (comment: string, bikeDockingStationId: number) => {
-    return await fetch(`${API}/comments/create`, {
+    const requestResult =  await fetch(`${API}/comments/create`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ comment, bikeDockingStationId }),
         method: 'POST'
     });
+    if(requestResult.status === 401) {
+        window.location.assign(calculateUrl());
+    }
+    return requestResult.json();
 };
 
 export const sendResponseComment = async (comment: string, comment_id: number, bikeDockingStationId:number ) => {
-    return await fetch(`${API}/comments/create`, {
+    const requestResult = await fetch(`${API}/comments/create`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ comment, comment_id,bikeDockingStationId }),
         method: 'POST'
     });
+    if(requestResult.status === 401) {
+        window.location.assign(calculateUrl());
+    }
+    return requestResult.json();
 };
 
 export const sendRating = async (rating: number, station_id: number) => {
-    return await fetch(`${API}/rating/create/`, {
+    const requestResult =  await fetch(`${API}/rating/create/`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ rating, station_id }),
         method: 'POST'
     });
+    if(requestResult.status === 401) {
+        window.location.assign(calculateUrl());
+    }
+    return requestResult.json();
 };
 
 export const ratingAverage = async (station_id: number) =>  {

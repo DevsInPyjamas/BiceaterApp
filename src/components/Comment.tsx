@@ -18,7 +18,6 @@ export const Comment: React.FC<CommentProps> = (props) => {
 
     const date = new Date(props.date);
     const history = useHistory();
-    console.log(props.stationId);
 
     function handleClick(event: any) {
         history.push(`/comments/${props.comment_id}/response/station/${props.stationId}`);
